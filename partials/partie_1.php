@@ -21,6 +21,12 @@
             <li><strong>Communiquer</strong> grâce à des rapports clairs.</li>
         </ul>
     </div>
+
+    <div>
+        <iframe width="944" height="531" src="https://www.youtube.com/embed/rM1nsMpaMlE" title="Comment utiliser l&#39;essentiel de MS Project" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            
+</div>
+
 </section>
 
 <!-- ========== CHAPITRE 2 : GANTT ET PERT ========== -->

@@ -1,291 +1,240 @@
 <!-- =================================================================== -->
-<!-- PARTIE 6 : LA BOÎTE À OUTILS SAUVETAGE -->
+<!-- PARTIE 6 : TRAVAILLER EN PARALLÈLE -->
 <!-- =================================================================== -->
-<h2 class="text-3xl font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-6">Partie 6 : La Boîte à Outils "Sauvetage"</h2>
+<h2 class="text-3xl font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-6">Partie 6 : Travailler en Parallèle</h2>
 
-<!-- ========== CHAPITRE 1 : ANNULATION ========== -->
-<section id="annulation" class="mb-16">
-    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Chapitre 1 : Annulation (amend, reset, revert, restore)</h3>
-
-    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">1.1 Modifier le dernier commit (--amend)</h4>
-        <p class="text-gray-700 mb-4">Corrige le dernier commit sans en créer un nouveau. Utile pour corriger un message ou ajouter un fichier oublié.</p>
-        
-        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto mb-4">
-# Modifier le message du dernier commit
-$ git commit --amend -m "Nouveau message corrigé"
-
-# Ajouter des fichiers oubliés au dernier commit
-$ git add fichier_oublie.txt
-$ git commit --amend --no-edit    # Garde le même message
-
-# Modifier auteur
-$ git commit --amend --author="Nouveau Nom <email@example.com>"</pre>
-
-        <div class="bg-yellow-50 p-4 rounded border-l-4 border-yellow-500">
-            <p class="text-sm text-yellow-800"><strong>⚠️ Attention :</strong> <code>--amend</code> réécrit l'historique. Ne l'utilisez PAS sur un commit déjà poussé, sauf si vous êtes seul sur la branche et prêt à <code>force push</code>.</p>
-        </div>
-    </div>
+<!-- ========== CHAPITRE 1 : THÉORIE & UNGIT ========== -->
+<section id="theorie-branches" class="mb-16">
+    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Chapitre 1 : Comprendre les Branches & Ungit</h3>
 
     <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">1.2 Git Reset : Revenir en arrière</h4>
-        <p class="text-gray-700 mb-4">Déplace HEAD et potentiellement modifie l'index et le working directory.</p>
-        
-        <div class="grid md:grid-cols-3 gap-4 mb-4">
-            <div class="bg-green-50 p-4 rounded border-t-4 border-green-500">
-                <h5 class="font-bold text-green-900 mb-2">--soft</h5>
-                <p class="text-sm text-green-800">Déplace HEAD. Index et working directory intacts.</p>
-                <p class="text-xs text-green-700 mt-2">📦 Modifications restent stagées</p>
-            </div>
-            <div class="bg-yellow-50 p-4 rounded border-t-4 border-yellow-500">
-                <h5 class="font-bold text-yellow-900 mb-2">--mixed (défaut)</h5>
-                <p class="text-sm text-yellow-800">Déplace HEAD + reset l'index. Working directory intact.</p>
-                <p class="text-xs text-yellow-700 mt-2">✏️ Modifications non stagées</p>
-            </div>
-            <div class="bg-red-50 p-4 rounded border-t-4 border-red-500">
-                <h5 class="font-bold text-red-900 mb-2">--hard</h5>
-                <p class="text-sm text-red-800">Déplace HEAD + reset index + reset working directory.</p>
-                <p class="text-xs text-red-700 mt-2">🗑️ PERTE de modifications !</p>
-            </div>
-        </div>
-
-        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto">
-# Annuler les 3 derniers commits (garder les modifications stagées)
-$ git reset --soft HEAD~3
-
-# Annuler les 3 derniers commits (modifications non stagées)
-$ git reset HEAD~3
-
-# DANGER : Supprimer les 3 derniers commits ET les modifications
-$ git reset --hard HEAD~3
-
-# Annuler un reset (avec reflog, voir chapitre 3)
-$ git reset --hard HEAD@{1}</pre>
-    </div>
-
-    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">1.3 Git Revert : Annuler sans réécrire</h4>
-        <p class="text-gray-700 mb-4">Crée un nouveau commit qui annule les modifications d'un commit précédent. Préserve l'historique.</p>
-        
-        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto mb-4">
-# Annuler un commit spécifique
-$ git revert abc1234
-
-# Annuler sans créer de commit immédiatement
-$ git revert --no-commit abc1234
-
-# Annuler plusieurs commits
-$ git revert abc1234..def5678
-
-# En cas de conflit
-$ git revert --abort</pre>
-
-        <div class="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
-            <p class="text-sm text-blue-800"><strong>💡 Reset vs Revert :</strong></p>
-            <ul class="list-disc ml-4 text-sm text-blue-800 mt-2">
-                <li><strong>Reset :</strong> Pour les commits NON poussés (réécrit l'historique)</li>
-                <li><strong>Revert :</strong> Pour les commits DÉJÀ poussés (préserve l'historique)</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">1.4 Git Restore (Git 2.23+)</h4>
-        <p class="text-gray-700 mb-4">Commande moderne pour restaurer des fichiers, plus claire que <code>checkout</code>.</p>
-        
-        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto">
-# Annuler les modifications d'un fichier (non stagé)
-$ git restore fichier.txt
-
-# Retirer un fichier de la staging area
-$ git restore --staged fichier.txt
-
-# Restaurer un fichier depuis un commit spécifique
-$ git restore --source=abc1234 fichier.txt
-
-# Restaurer tout le working directory
-$ git restore .
-
-# Équivalents ancienne syntaxe
-$ git checkout -- fichier.txt         # = git restore
-$ git reset HEAD fichier.txt          # = git restore --staged</pre>
-    </div>
-</section>
-
-<!-- ========== CHAPITRE 2 : STASH ========== -->
-<section id="stash" class="mb-16">
-    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Chapitre 2 : Le Stash</h3>
-
-    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">2.1 Principe du Stash</h4>
+        <h4 class="text-xl font-bold text-gray-800 mb-4">1.1 Le concept de Branche (Mondes Parallèles)</h4>
         <p class="text-gray-700 mb-4">
-            Le stash permet de "mettre de côté" des modifications en cours pour travailler sur autre chose, puis de les récupérer plus tard. C'est une pile (LIFO).
+            Une branche est une ligne de développement indépendante. Elle permet de travailler sur une fonctionnalité ou un correctif sans toucher à la version stable (souvent appelée <code>main</code> ou <code>master</code>) du projet.
         </p>
-        
-        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto mb-4">
-# Stasher les modifications
-$ git stash
-# Équivaut à: git stash push
-
-# Avec un message descriptif
-$ git stash push -m "WIP: login feature"
-
-# Inclure les fichiers non suivis
-$ git stash -u
-$ git stash --include-untracked
-
-# Stasher seulement certains fichiers
-$ git stash push -m "Partial stash" -- fichier1.txt fichier2.txt</pre>
+        <p class="text-gray-700 mb-4">
+            C'est comme faire une photocopie d'un document pour écrire des notes dessus. Si les notes sont mauvaises, on jette la photocopie. Si elles sont bonnes, on les recopie sur l'original.
+        </p>
     </div>
 
     <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">2.2 Gestion de la pile de stash</h4>
-        
-        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto mb-4">
-# Voir la liste des stashs
-$ git stash list
-stash@{0}: WIP on main: abc1234 Message du commit
-stash@{1}: On feature: def5678 Autre message
-
-# Appliquer le dernier stash (sans le supprimer)
-$ git stash apply
-
-# Appliquer et supprimer le dernier stash
-$ git stash pop
-
-# Appliquer un stash spécifique
-$ git stash apply stash@{2}
-
-# Voir le contenu d'un stash
-$ git stash show stash@{0}
-$ git stash show -p stash@{0}     # Avec le diff
-
-# Supprimer un stash
-$ git stash drop stash@{1}
-
-# Vider toute la pile
-$ git stash clear</pre>
-    </div>
-
-    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">2.3 Techniques avancées</h4>
-        
-        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto mb-4">
-# Créer une branche depuis un stash
-$ git stash branch nouvelle-branche stash@{0}
-
-# Stash interactif (choisir les hunks)
-$ git stash push -p
-
-# Garder les fichiers stagés intacts
-$ git stash push --keep-index</pre>
-
-        <div class="bg-purple-50 p-4 rounded border-l-4 border-purple-500">
-            <p class="text-sm text-purple-800"><strong>🎯 Cas d'usage typiques :</strong></p>
-            <ul class="list-disc ml-4 text-sm text-purple-800 mt-2 space-y-1">
-                <li>Changement de branche urgent avec travail en cours</li>
-                <li>Pull qui nécessite un working directory propre</li>
-                <li>Test rapide d'un état "propre" du code</li>
-                <li>Transfert de modifications entre branches</li>
-            </ul>
+        <h4 class="text-xl font-bold text-gray-800 mb-4">1.2 Voir l'Invisible avec Ungit</h4>
+        <div class="bg-indigo-50 p-6 rounded-lg border border-indigo-200">
+            <h5 class="font-bold text-indigo-900 mb-4">🛠️ Installation & Utilisation</h5>
+            <p class="text-indigo-800 mb-2">Pour visualiser ces mondes parallèles, nous utiliserons Ungit.</p>
+            <code class="block bg-gray-800 text-white p-2 rounded text-sm mb-2">$ npm install -g ungit</code>
+            <p class="text-indigo-800 mb-2">Puis dans votre dossier projet :</p>
+            <code class="block bg-gray-800 text-green-400 p-2 rounded text-sm mb-2">$ ungit</code>
+            <p class="text-xs text-indigo-600 mt-2">Ouvrez <a href="http://localhost:8448" target="_blank" class="underline">http://localhost:8448</a>.</p>
         </div>
     </div>
 </section>
 
-<!-- ========== CHAPITRE 3 : REFLOG ========== -->
-<section id="reflog" class="mb-16">
-    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Chapitre 3 : Le Reflog</h3>
+<!-- ========== CHAPITRE 2 : COMMANDES ESSENTIELLES ========== -->
+<section id="commandes-base" class="mb-16">
+    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Chapitre 2 : Les Commandes Essentielles</h3>
 
     <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">3.1 Qu'est-ce que le Reflog ?</h4>
+        <h4 class="text-xl font-bold text-gray-800 mb-4">2.1 Créer et Changer (Branch, Checkout, Switch)</h4>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+            <div>
+                <h5 class="font-bold text-gray-700 mb-2">La Méthode Classique (Checkout)</h5>
+                <p class="text-sm text-gray-600 mb-2">Historiquement, <code>checkout</code> sert à tout (fichiers et branches).</p>
+                <pre class="bg-gray-100 p-3 rounded text-sm border font-mono">
+# Créer une branche
+$ git branch ma-feature
+
+# Aller dessus
+$ git checkout ma-feature
+
+# Créer ET Aller dessus (Raccourci)
+$ git checkout -b ma-feature</pre>
+            </div>
+            
+            <div>
+                <h5 class="font-bold text-green-700 mb-2">La Méthode Moderne (Switch)</h5>
+                <p class="text-sm text-gray-600 mb-2">Plus explicite, dédié uniquement aux branches (Git > 2.23).</p>
+                <pre class="bg-gray-100 p-3 rounded text-sm border font-mono">
+# Aller sur une branche existante
+$ git switch ma-feature
+
+# Créer ET Aller dessus
+$ git switch -c ma-feature</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">2.2 ramener le travail (Merge)</h4>
         <p class="text-gray-700 mb-4">
-            Le <strong>Reference Log</strong> enregistre TOUTES les modifications de HEAD et des branches sur votre machine locale. C'est votre filet de sécurité ultime.
+            Une fois le travail fini sur la branche, il faut le ramener sur la branche principale.
+        </p>
+        <div class="border-l-4 border-blue-500 pl-4 bg-blue-50 p-4 rounded">
+            <p class="font-bold text-blue-800">La Règle d'Or du Merge :</p>
+            <p class="text-blue-900">On se place TOUJOURS sur la branche qui REÇOIT (souvent main).</p>
+        </div>
+        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm mt-4 font-mono">
+# 1. Je retourne sur le vaisseau mère
+$ git switch main
+
+# 2. J'aspire le travail de ma branche
+$ git merge ma-feature</pre>
+    </div>
+</section>
+
+<!-- ========== CHAPITRE 3 : PROJET TECHSTORE ========== -->
+<section id="projet-start" class="mb-16">
+    <h3 class="text-2xl font-semibold mb-4 text-purple-800">Chapitre 3 : 🏆 Projet 'TechStore' (Mise en Pratique)</h3>
+
+    <div class="bg-purple-50 p-6 rounded-lg border border-purple-200 mb-6">
+        <h4 class="text-xl font-bold text-purple-900 mb-2">Scénario</h4>
+        <p class="text-purple-800">
+            Maintenant que vous connaissez les commandes, vous allez les utiliser pour construire un site E-Commerce. Vous allez rencontrer 3 situations réelles : Le Fast-Forward, Le Merge Classique (No-FF) et le Conflit.
+        </p>
+    </div>
+
+    <!-- 3.1 SETUP -->
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-8">
+        <h4 class="text-lg font-bold text-gray-800 mb-4">3.1 Initialisation (Main)</h4>
+        <p class="text-sm text-gray-600 mb-4">Créez le dossier <code>techstore</code> et les fichiers suivants. Commitez le tout sur <code>main</code>.</p>
+        
+        <details>
+            <summary class="cursor-pointer bg-gray-200 p-2 rounded font-bold text-sm">📂 Afficher le Code Source de départ</summary>
+            <div class="mt-4 grid gap-4">
+                <div class="border p-2 rounded">
+                    <p class="font-bold text-xs text-gray-500">index.html</p>
+                    <pre class="text-xs bg-gray-50 p-2 overflow-x-auto">&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;body&gt;&lt;h1&gt;TechStore&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;</pre>
+                </div>
+                <div class="border p-2 rounded">
+                    <p class="font-bold text-xs text-gray-500">style.css</p>
+                    <pre class="text-xs bg-gray-50 p-2 overflow-x-auto">body { background: #fff; color: #333; }</pre>
+                </div>
+            </div>
+        </details>
+        <div class="mt-4 grid gap-4">
+            <div class="border p-2 rounded">
+                <p class="font-bold text-xs text-gray-500">index.html</p>
+                <pre class="text-xs bg-gray-50 p-2 overflow-x-auto">&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;body&gt;&lt;h1&gt;TechStore&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;</pre>
+            </div>
+            <div class="border p-2 rounded">
+                <p class="font-bold text-xs text-gray-500">style.css</p>
+                <pre class="text-xs bg-gray-50 p-2 overflow-x-auto">body { background: #fff; color: #333; }</pre>
+            </div>
+        </div>
+    </details>
+    <div class="mt-4 bg-gray-800 text-gray-300 p-4 rounded text-xs font-mono">
+        <p class="mb-1 text-gray-500"># Windows (PowerShell) & Linux/Mac : Tapez les commandes l'une après l'autre</p>
+        <p>$ git init</p>
+        <p>$ git add .</p>
+        <p>$ git commit -m "Init V1"</p>
+    </div>
+    </div>
+
+    <!-- 3.2 FAST FORWARD -->
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-8">
+        <h4 class="text-lg font-bold text-gray-800 mb-4">3.2 Cas 1 : Le Fast-Forward (Design)</h4>
+        <p class="text-gray-700 mb-4">
+            Vous travaillez seul. <code>main</code> ne bouge pas. C'est le cas le plus simple.
+        </p>
+        <ol class="list-decimal ml-6 space-y-2 text-sm text-gray-800">
+            <li>Créez une branche : <code>git switch -c design-v2</code></li>
+            <li>Modifiez <code>style.css</code> (Changez le background en <code>#f4f4f4</code>).</li>
+            <li>
+                <strong>Commitez :</strong>
+                <div class="bg-gray-800 text-gray-300 p-2 rounded text-xs mt-1 font-mono">
+                    <p>$ git add .</p>
+                    <p>$ git commit -m "New Design"</p>
+                </div>
+            </li>
+            <li>Revenez sur main : <code>git switch main</code></li>
+            <li>Fusionnez : <code>git merge design-v2</code></li>
+        </ol>
+        <p class="text-green-600 font-bold mt-2 text-sm">Observe le résultat : Git a juste avancé l'étiquette main. C'est un Fast-Forward.</p>
+    </div>
+
+    <!-- 3.3 NO-FF -->
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-8">
+        <h4 class="text-lg font-bold text-gray-800 mb-4">3.3 Cas 2 : L'Historique Forcé (Features)</h4>
+        <p class="text-gray-700 mb-4">
+            On veut voir clairement la branche "Produits" dans l'historique, même si un FF est possible.
+        </p>
+        <ol class="list-decimal ml-6 space-y-2 text-sm text-gray-800">
+            <li>Branche : <code>git switch -c feature-produits</code></li>
+            <li>
+                Créez <code>produits.html</code>. <strong>Commitez :</strong>
+                <div class="bg-gray-800 text-gray-300 p-2 rounded text-xs mt-1 font-mono">
+                    <p>$ git add .</p>
+                    <p>$ git commit -m "Page produits basic"</p>
+                </div>
+            </li>
+            <li>Main : <code>git switch main</code></li>
+            <li>Fusion : <code>git merge --no-ff feature-produits</code></li>
+        </ol>
+        <p class="text-purple-600 font-bold mt-2 text-sm">Observe Ungit : Une "bulle" s'est créée. On voit le début et la fin de la feature.</p>
+    </div>
+
+    <!-- 3.4 CONFLIT -->
+    <div class="bg-red-50 p-6 rounded-lg border border-red-200 mb-8">
+        <h4 class="text-lg font-bold text-red-900 mb-4">3.4 Cas 3 : Le Conflit (Le Choc)</h4>
+        <p class="text-red-800 mb-4">
+            Deux versions différentes du même titre. Qui gagne ?
+        </p>
+        <div class="grid md:grid-cols-2 gap-4 text-sm">
+            <div class="bg-white p-3 rounded">
+                <p class="font-bold">1. Sur MAIN</p>
+                <p>Modifiez le H1 : "TechStore 2026"</p>
+                <p>Commitez.</p>
+            </div>
+            <div class="bg-white p-3 rounded">
+                <p class="font-bold">2. Sur une nouvelle branche "promo"</p>
+                <p>Modifiez le H1 (Même ligne) : "PROMO HIVER"</p>
+                <p>Commitez.</p>
+            </div>
+        </div>
+        <div class="mt-4">
+            <p class="font-bold text-red-900 mb-2">3. La Fusion</p>
+            <div class="bg-red-900 text-white p-3 rounded text-xs font-mono">
+                <p>$ git switch main</p>
+                <p>$ git merge promo</p>
+            </div>
+            <p class="text-red-800 mt-2">💥 CONFLIT ! Ouvrez index.html, choisissez la version finale, puis faites <code>git add .</code> et <code>git commit</code>.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ========== CHAPITRE 4 : STASH EXPERT ========== -->
+<section id="master-stash" class="mb-16">
+    <h3 class="text-2xl font-semibold mb-4 text-indigo-800">Chapitre 4 : La Maîtrise du Stash</h3>
+
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">4.1 Le "Presse-papiers" de Git</h4>
+        <p class="text-gray-700 mb-4 leading-relaxed">
+            Vous devez changer de branche MAIS votre travail n'est pas fini. Vous ne pouvez pas commiter du code cassé.<br>
+            Le Stash vous permet de <strong>stocker temporairement</strong> vos fichiers modifiés.
         </p>
         
-        <div class="bg-green-50 p-4 rounded border-l-4 border-green-500 mb-4">
-            <p class="text-sm text-green-800"><strong>🛡️ Superpouvoir :</strong> Même après un <code>reset --hard</code>, les commits "perdus" sont encore accessibles via le reflog pendant au moins 30 jours.</p>
-        </div>
-
-        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto">
-$ git reflog
-abc1234 HEAD@{0}: commit: feat: nouvelle fonctionnalité
-def5678 HEAD@{1}: checkout: moving from feature to main
-ghi9012 HEAD@{2}: reset: moving to HEAD~3
-jkl3456 HEAD@{3}: commit: fix: correction bug
-...</pre>
-    </div>
-
-    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">3.2 Récupérer des commits perdus</h4>
-        
-        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto mb-4">
-# Scénario : Oups, j'ai fait reset --hard et perdu mon travail !
-
-# 1. Trouver le commit perdu
-$ git reflog
-abc1234 HEAD@{0}: reset: moving to HEAD~3
-def5678 HEAD@{1}: commit: Travail important perdu  <-- Le voilà !
-
-# 2. Option A : Revenir à cet état
-$ git reset --hard HEAD@{1}
-
-# 2. Option B : Créer une branche pour le récupérer
-$ git branch recovery HEAD@{1}
-
-# 2. Option C : Cherry-pick le commit
-$ git cherry-pick def5678</pre>
-    </div>
-
-    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">3.3 Récupérer une branche supprimée</h4>
-        
-        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto mb-4">
-# Oups, j'ai supprimé ma branche feature avec -D !
-
-# 1. Trouver le dernier commit de la branche
-$ git reflog | grep feature
-abc1234 HEAD@{5}: checkout: moving from feature to main
-
-# 2. Ou chercher le message spécifique
-$ git reflog | grep "mon message de commit"
-
-# 3. Recréer la branche
-$ git branch feature abc1234</pre>
-    </div>
-
-    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">3.4 Commandes utiles du reflog</h4>
-        
-        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto mb-4">
-# Reflog d'une branche spécifique
-$ git reflog show feature
-
-# Avec dates
-$ git reflog --date=iso
-
-# Chercher par date
-$ git reflog --since="2 days ago"
-
-# Voir le reflog d'un tag
-$ git reflog show v1.0.0</pre>
-
-        <div class="grid md:grid-cols-2 gap-4">
-            <div class="bg-yellow-50 p-4 rounded">
-                <h5 class="font-bold text-yellow-900 mb-2">⏰ Durée de conservation</h5>
-                <ul class="list-disc ml-4 text-sm text-yellow-800 space-y-1">
-                    <li>Refs accessibles : 90 jours (par défaut)</li>
-                    <li>Refs inaccessibles : 30 jours</li>
-                    <li>Configurable via <code>gc.reflogExpire</code></li>
-                </ul>
-            </div>
-            <div class="bg-red-50 p-4 rounded">
-                <h5 class="font-bold text-red-900 mb-2">⚠️ Limites</h5>
-                <ul class="list-disc ml-4 text-sm text-red-800 space-y-1">
-                    <li>Local uniquement (pas partagé)</li>
-                    <li>Supprimé par <code>git gc</code> après expiration</li>
-                    <li>N'existe pas après un fresh clone</li>
-                </ul>
-            </div>
-        </div>
+        <table class="min-w-full text-sm border mt-4">
+            <tr class="bg-gray-100">
+                <th class="p-2 border">Action</th>
+                <th class="p-2 border">Commande</th>
+            </tr>
+            <tr>
+                <td class="p-2 border">Sauvegarder (Rapide)</td>
+                <td class="p-2 border font-mono text-blue-600">git stash</td>
+            </tr>
+            <tr>
+                <td class="p-2 border">Sauvegarder (Nommé)</td>
+                <td class="p-2 border font-mono text-blue-600">git stash save "Mon travail en cours"</td>
+            </tr>
+            <tr>
+                <td class="p-2 border">Récupérer & Supprimer</td>
+                <td class="p-2 border font-mono text-blue-600">git stash pop</td>
+            </tr>
+            <tr>
+                <td class="p-2 border">Voir la liste</td>
+                <td class="p-2 border font-mono text-blue-600">git stash list</td>
+            </tr>
+        </table>
     </div>
 </section>

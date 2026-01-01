@@ -6,36 +6,37 @@ define('COURSE_LAST_UPDATE', 'Janvier 2026');
 
 // Structure du cours pour générer le sommaire dynamiquement
 $course_parts = [
-    "Partie 1 : Introduction et Fondamentaux" => [
-        ['id' => 'vcs-philosophie', 'title' => "Chapitre 1 : VCS & Philosophie (Centralisé vs Distribué)"],
-        ['id' => 'installation-config', 'title' => "Chapitre 2 : Installation & Configuration"]
+    "Partie 1 : Introduction et Fondamentaux (Vulgarisé)" => [
+        ['id' => 'probleme-solution', 'title' => "Chapitre 1 : Le problème (Pourquoi Git ?)"],
+        ['id' => 'vcs-definition', 'title' => "Chapitre 2 : Git, c'est quoi ? (Définitions simples)"],
+        ['id' => 'installation-ecosysteme', 'title' => "Chapitre 3 : Installation et les Géants (GitHub, GitLab...)"]
     ],
-    "Partie 2 : Architecture Interne (L'âme de Git)" => [
-        ['id' => 'objets-git', 'title' => "Chapitre 1 : Les Objets Git (Blobs, Trees, Commits, Tags)"],
-        ['id' => 'dossier-git', 'title' => "Chapitre 2 : Le dossier .git (Index et Références)"],
-        ['id' => 'hachage-integrite', 'title' => "Chapitre 3 : Hachage & Intégrité (SHA-1/SHA-256)"]
+    "Partie 2 : Initialisation et Fonctionnement (Vulgarisé)" => [
+        ['id' => 'git-init', 'title' => "Chapitre 1 : Créer son premier dépôt (git init)"],
+        ['id' => 'comment-ca-marche', 'title' => "Chapitre 2 : Comment ça marche ? (La boîte noire .git)"],
+        ['id' => 'integrite-simplifiee', 'title' => "Chapitre 3 : Pourquoi Git ne perd rien (Intégrité)"]
     ],
-    "Partie 3 : Flux Local et Analyse de Différences" => [
-        ['id' => 'cycle-vie', 'title' => "Chapitre 1 : Cycle de vie des fichiers"],
-        ['id' => 'maitrise-diff', 'title' => "Chapitre 2 : Maîtrise de git diff"],
-        ['id' => 'patchs', 'title' => "Chapitre 3 : Patchs (git apply, git format-patch)"]
+    "Partie 3 : Les Bases du Travail (Add, Commit, Ignore)" => [
+        ['id' => 'concepts-etats', 'title' => "Chapitre 1 : Concepts & États (Untracked, Staged...)"],
+        ['id' => 'add-gitignore', 'title' => "Chapitre 2 : Ajouter (Add) et Ignorer (.gitignore)"],
+        ['id' => 'status-commit', 'title' => "Chapitre 3 : Vérifier (Status) et Valider (Commit)"]
     ],
-    "Partie 4 : Navigation, Branches et États Complexes" => [
-        ['id' => 'branches', 'title' => "Chapitre 1 : Les Branches (Création, Fusion, Suppression)"],
-        ['id' => 'detached-head', 'title' => "Chapitre 2 : L'état Detached HEAD"],
-        ['id' => 'cherry-pick', 'title' => "Chapitre 3 : Le Cherry-pick"],
-        ['id' => 'tags-semver', 'title' => "Chapitre 4 : Versioning (Tags et SemVer)"]
+    "Partie 4 : Exploration et Voyage (Log, Diff, Checkout)" => [
+        ['id' => 'git-log', 'title' => "Chapitre 1 : Lire l'histoire (git log)"],
+        ['id' => 'git-diff-detail', 'title' => "Chapitre 2 : Inspecter les changements (git diff)"],
+        ['id' => 'git-checkout', 'title' => "Chapitre 3 : Voyager dans le temps (git checkout)"]
     ],
-    "Partie 5 : Collaboration et Sécurité" => [
-        ['id' => 'protocoles-remotes', 'title' => "Chapitre 1 : Protocoles & Remotes (SSH vs HTTPS)"],
-        ['id' => 'force-push', 'title' => "Chapitre 2 : Le Force Push"],
-        ['id' => 'securite-secrets', 'title' => "Chapitre 3 : Sécurité des secrets"],
-        ['id' => 'performance-clone', 'title' => "Chapitre 4 : Performance (shallow & partial clone)"]
+    "Partie 5 : Annuler et Réparer (Revert, Reset, Restore)" => [
+        ['id' => 'git-amend', 'title' => "Chapitre 1 : Oups ! Petite correction (git commit --amend)"],
+        ['id' => 'git-revert', 'title' => "Chapitre 2 : Annuler proprement (git revert)"],
+        ['id' => 'git-reset', 'title' => "Chapitre 3 : La chirurgie de l'historique (git reset)"],
+        ['id' => 'git-restore', 'title' => "Chapitre 4 : Restaurer sans danger (git restore)"]
     ],
-    "Partie 6 : La Boîte à Outils Sauvetage" => [
-        ['id' => 'annulation', 'title' => "Chapitre 1 : Annulation (amend, reset, revert, restore)"],
-        ['id' => 'stash', 'title' => "Chapitre 2 : Le Stash"],
-        ['id' => 'reflog', 'title' => "Chapitre 3 : Le Reflog"]
+    "Partie 6 : Travailler en Parallèle (Théorie, Commandes & Pratique)" => [
+        ['id' => 'theorie-branches', 'title' => "Chapitre 1 : Comprendre les Branches & Ungit"],
+        ['id' => 'commandes-base', 'title' => "Chapitre 2 : Les Commandes Essentielles (Switch, Merge)"],
+        ['id' => 'projet-start', 'title' => "Chapitre 3 : 🏆 Projet 'TechStore' : Pratique & Conflits"],
+        ['id' => 'master-stash', 'title' => "Chapitre 4 : La Maîtrise du Stash (Expert)"]
     ],
     "Partie 7 : Conflits et Maintenance Avancée" => [
         ['id' => 'strategies-merge', 'title' => "Chapitre 1 : Stratégies de Merge"],

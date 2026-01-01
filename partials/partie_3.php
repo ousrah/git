@@ -1,292 +1,244 @@
 <!-- =================================================================== -->
-<!-- PARTIE 3 : FLUX LOCAL ET ANALYSE DE DIFFÉRENCES -->
+<!-- PARTIE 3 : LES BASES DU TRAVAIL (ADD, COMMIT, IGNORE) -->
 <!-- =================================================================== -->
-<h2 class="text-3xl font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-6">Partie 3 : Flux Local et Analyse de Différences</h2>
+<h2 class="text-3xl font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-6">Partie 3 : Les Bases du Travail</h2>
 
-<!-- ========== CHAPITRE 1 : CYCLE DE VIE ========== -->
-<section id="cycle-vie" class="mb-16">
-    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Chapitre 1 : Cycle de vie des fichiers</h3>
-
-    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">1.1 Les 4 états d'un fichier</h4>
-        
-        <div class="grid md:grid-cols-4 gap-3 mb-6">
-            <div class="bg-gray-100 p-3 rounded text-center">
-                <div class="text-2xl mb-2">❓</div>
-                <h5 class="font-bold text-gray-800">Untracked</h5>
-                <p class="text-xs text-gray-600">Nouveau fichier, inconnu de Git</p>
-            </div>
-            <div class="bg-red-100 p-3 rounded text-center">
-                <div class="text-2xl mb-2">✏️</div>
-                <h5 class="font-bold text-red-800">Modified</h5>
-                <p class="text-xs text-red-700">Modifié mais pas encore stagé</p>
-            </div>
-            <div class="bg-yellow-100 p-3 rounded text-center">
-                <div class="text-2xl mb-2">📦</div>
-                <h5 class="font-bold text-yellow-800">Staged</h5>
-                <p class="text-xs text-yellow-700">Prêt pour le prochain commit</p>
-            </div>
-            <div class="bg-green-100 p-3 rounded text-center">
-                <div class="text-2xl mb-2">✅</div>
-                <h5 class="font-bold text-green-800">Committed</h5>
-                <p class="text-xs text-green-700">Enregistré dans l'historique</p>
-            </div>
-        </div>
-
-        <div class="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
-            <h5 class="font-bold text-blue-900 mb-2">🔄 Le flux de travail standard</h5>
-            <pre class="text-sm text-blue-800 font-mono">
-Untracked ──git add──▶ Staged ──git commit──▶ Committed
-                          ▲                        │
-                          │                        │
-Modified ◀──modifier────────────────────────────────┘</pre>
-        </div>
-    </div>
+<!-- ========== CHAPITRE 1 : CONCEPTS ET ÉTATS ========== -->
+<section id="concepts-etats" class="mb-16">
+    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Chapitre 1 : Concepts & États</h3>
 
     <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">1.2 Commandes essentielles du cycle</h4>
-        
-        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto mb-4">
-# Voir l'état actuel
-$ git status
-$ git status -s          # Version courte
-
-# Ajouter des fichiers à la staging area
-$ git add fichier.txt    # Un fichier spécifique
-$ git add .              # Tout le répertoire courant
-$ git add -A             # Tout, y compris suppressions
-$ git add -p             # Interactif, chunk par chunk
-
-# Retirer de la staging area (sans perdre les modifications)
-$ git restore --staged fichier.txt   # Git 2.23+
-$ git reset HEAD fichier.txt         # Ancienne méthode
-
-# Annuler les modifications (DANGER: perte définitive)
-$ git restore fichier.txt            # Git 2.23+
-$ git checkout -- fichier.txt        # Ancienne méthode
-
-# Créer un commit
-$ git commit -m "Message du commit"
-$ git commit -am "Message"           # Add + Commit (fichiers suivis uniquement)
-$ git commit                         # Ouvre l'éditeur pour le message</pre>
-    </div>
-
-    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">1.3 Bonnes pratiques pour les commits</h4>
-        
-        <div class="grid md:grid-cols-2 gap-4">
-            <div class="bg-green-50 p-4 rounded">
-                <h5 class="font-bold text-green-900 mb-2">✅ À faire</h5>
-                <ul class="list-disc ml-4 text-sm text-green-800 space-y-1">
-                    <li>Commits atomiques (une seule modification logique)</li>
-                    <li>Messages clairs : "feat: ajout login OAuth"</li>
-                    <li>Utiliser des préfixes : feat, fix, docs, refactor, test</li>
-                    <li>Écrire au présent impératif : "Add", pas "Added"</li>
-                </ul>
-            </div>
-            <div class="bg-red-50 p-4 rounded">
-                <h5 class="font-bold text-red-900 mb-2">❌ À éviter</h5>
-                <ul class="list-disc ml-4 text-sm text-red-800 space-y-1">
-                    <li>Commits géants mélangeant plusieurs features</li>
-                    <li>Messages vagues : "fix bug", "update"</li>
-                    <li>Commiter des fichiers générés ou secrets</li>
-                    <li>Commits WIP sans les squasher avant merge</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="mt-4 bg-purple-50 p-4 rounded border-l-4 border-purple-500">
-            <h5 class="font-bold text-purple-900 mb-2">📝 Convention Conventional Commits</h5>
-            <pre class="text-sm text-purple-800 font-mono bg-purple-100 p-2 rounded">
-&lt;type&gt;(&lt;scope&gt;): &lt;description&gt;
-
-[optional body]
-[optional footer(s)]
-
-Exemple: feat(auth): implement JWT token refresh</pre>
-        </div>
-    </div>
-</section>
-
-<!-- ========== CHAPITRE 2 : GIT DIFF ========== -->
-<section id="maitrise-diff" class="mb-16">
-    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Chapitre 2 : Maîtrise de git diff</h3>
-
-    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">2.1 Les trois comparaisons fondamentales</h4>
-        
-        <div class="space-y-4">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">1.1 Le Repository et le Commit</h4>
+        <div class="grid md:grid-cols-2 gap-6">
             <div class="bg-blue-50 p-4 rounded">
-                <h5 class="font-bold text-blue-900 mb-2">📁 Working Directory vs Staging Area</h5>
-                <pre class="bg-gray-800 text-green-400 p-3 rounded text-sm overflow-x-auto">
-$ git diff
-# Montre ce qui a été modifié mais pas encore stagé</pre>
-            </div>
-            
-            <div class="bg-yellow-50 p-4 rounded">
-                <h5 class="font-bold text-yellow-900 mb-2">📦 Staging vs Dernier Commit</h5>
-                <pre class="bg-gray-800 text-green-400 p-3 rounded text-sm overflow-x-auto">
-$ git diff --staged
-$ git diff --cached     # Synonyme
-# Montre ce qui sera inclus dans le prochain commit</pre>
-            </div>
-            
-            <div class="bg-green-50 p-4 rounded">
-                <h5 class="font-bold text-green-900 mb-2">📊 Working Directory vs Dernier Commit</h5>
-                <pre class="bg-gray-800 text-green-400 p-3 rounded text-sm overflow-x-auto">
-$ git diff HEAD
-# Montre TOUTES les modifications depuis le dernier commit</pre>
-            </div>
-        </div>
-    </div>
-
-    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">2.2 Comparaisons entre branches et commits</h4>
-        
-        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto mb-4">
-# Entre deux branches
-$ git diff main..feature/login
-$ git diff main...feature/login  # Depuis l'ancêtre commun
-
-# Entre deux commits
-$ git diff abc1234..def5678
-$ git diff HEAD~3..HEAD          # 3 derniers commits
-
-# Un fichier spécifique entre commits
-$ git diff abc1234..HEAD -- src/app.js
-
-# Liste des fichiers modifiés (sans le contenu)
-$ git diff --name-only main..feature
-$ git diff --name-status main..feature   # Avec type de modif (M, A, D)</pre>
-    </div>
-
-    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">2.3 Lecture d'un diff</h4>
-        
-        <pre class="bg-gray-800 text-sm overflow-x-auto p-4 rounded">
-<span class="text-white">diff --git a/src/app.js b/src/app.js</span>
-<span class="text-gray-400">index 8ab686e..2c3d4e5 100644</span>
-<span class="text-white">--- a/src/app.js</span>
-<span class="text-white">+++ b/src/app.js</span>
-<span class="text-cyan-400">@@ -10,7 +10,8 @@ function init() {</span>
- <span class="text-gray-300">  const config = loadConfig();</span>
- <span class="text-gray-300">  const db = connectDB();</span>
-<span class="text-red-400">-  console.log("Starting...");</span>
-<span class="text-green-400">+  logger.info("Application starting");</span>
-<span class="text-green-400">+  logger.debug("Config loaded", config);</span>
- <span class="text-gray-300">  return app;</span>
- <span class="text-gray-300">}</span></pre>
-
-        <div class="mt-4 grid md:grid-cols-2 gap-4">
-            <div class="text-sm">
-                <p class="font-bold text-gray-700 mb-1">Légende :</p>
-                <ul class="space-y-1 text-gray-600">
-                    <li><span class="text-red-600">−</span> Ligne supprimée</li>
-                    <li><span class="text-green-600">+</span> Ligne ajoutée</li>
-                    <li><span class="text-gray-500">(espace)</span> Contexte non modifié</li>
-                </ul>
-            </div>
-            <div class="text-sm">
-                <p class="font-bold text-gray-700 mb-1">Header <code>@@</code> :</p>
-                <p class="text-gray-600"><code>@@ -10,7 +10,8 @@</code> = "Ancien fichier: ligne 10, 7 lignes / Nouveau: ligne 10, 8 lignes"</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">2.4 Options utiles de diff</h4>
-        
-        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto">
-# Ignorer les espaces blancs
-$ git diff -w
-$ git diff --ignore-all-space
-
-# Montrer les mots modifiés (pas les lignes)
-$ git diff --word-diff
-
-# Diff coloré pour les mots
-$ git diff --color-words
-
-# Statistiques seulement
-$ git diff --stat
-
-# Limiter le contexte
-$ git diff -U1     # 1 ligne de contexte (défaut: 3)</pre>
-    </div>
-</section>
-
-<!-- ========== CHAPITRE 3 : PATCHS ========== -->
-<section id="patchs" class="mb-16">
-    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Chapitre 3 : Patchs (git apply, git format-patch)</h3>
-
-    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">3.1 Créer un patch</h4>
-        <p class="text-gray-700 mb-4">
-            Un patch est un fichier texte contenant les modifications, pouvant être partagé et appliqué ailleurs (par email, ticket, etc.).
-        </p>
-        
-        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto mb-4">
-# Créer un patch à partir du diff non commité
-$ git diff > mon_patch.patch
-
-# Créer des patchs pour les N derniers commits (1 fichier par commit)
-$ git format-patch -3
-# Crée: 0001-Premier-commit.patch, 0002-Deuxieme.patch, 0003-Troisieme.patch
-
-# Patch depuis une branche
-$ git format-patch main..feature/login -o patches/
-
-# Patch unique pour plusieurs commits
-$ git format-patch main..feature --stdout > all-changes.patch</pre>
-    </div>
-
-    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">3.2 Appliquer un patch</h4>
-        
-        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto mb-4">
-# Appliquer un patch simple (modifications non commitées)
-$ git apply mon_patch.patch
-
-# Vérifier si le patch s'applique proprement (dry run)
-$ git apply --check mon_patch.patch
-
-# Appliquer avec statistiques
-$ git apply --stat mon_patch.patch
-
-# Appliquer les patchs format-patch (avec commits et messages)
-$ git am 0001-Premier-commit.patch
-$ git am patches/*.patch             # Tous les patchs du dossier
-
-# En cas de conflit avec git am
-$ git am --abort                     # Annuler
-$ git am --skip                      # Ignorer ce patch
-$ git am --continue                  # Après résolution manuelle</pre>
-    </div>
-
-    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">3.3 Cas d'usage des patchs</h4>
-        
-        <div class="grid md:grid-cols-2 gap-4">
-            <div class="bg-blue-50 p-4 rounded">
-                <h5 class="font-bold text-blue-900 mb-2">📧 Contribution par email</h5>
-                <p class="text-sm text-blue-800">Le workflow historique du noyau Linux : les développeurs envoient des patchs par email aux mainteneurs.</p>
-            </div>
-            <div class="bg-green-50 p-4 rounded">
-                <h5 class="font-bold text-green-900 mb-2">🔒 Environnements isolés</h5>
-                <p class="text-sm text-green-800">Transférer des modifications vers des machines sans accès réseau au dépôt distant.</p>
-            </div>
-            <div class="bg-orange-50 p-4 rounded">
-                <h5 class="font-bold text-orange-900 mb-2">📋 Review de code</h5>
-                <p class="text-sm text-orange-800">Partager des modifications pour revue avant de les pousser officiellement.</p>
+                <h5 class="font-bold text-blue-900 mb-2">📂 Le Repository (Dépôt)</h5>
+                <p class="text-sm text-blue-800">C'est votre projet complet, avec tout son historique. C'est la base de données qui contient toutes les versions de vos fichiers.</p>
             </div>
             <div class="bg-purple-50 p-4 rounded">
-                <h5 class="font-bold text-purple-900 mb-2">🔧 Hotfixes</h5>
-                <p class="text-sm text-purple-800">Appliquer rapidement un correctif spécifique à plusieurs branches ou dépôts.</p>
+                <h5 class="font-bold text-purple-900 mb-2">� Le Commit</h5>
+                <p class="text-sm text-purple-800">C'est une photo instantanée (snapshot) de votre projet à un moment précis. Une fois créé, un commit est gravé dans le marbre (ou presque).</p>
             </div>
         </div>
+    </div>
 
-        <div class="mt-4 bg-yellow-50 p-4 rounded border-l-4 border-yellow-500">
-            <p class="text-sm text-yellow-800"><strong>💡 Conseil :</strong> <code>git format-patch</code> est préférable à <code>git diff</code> car il préserve les métadonnées du commit (auteur, date, message).</p>
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">1.2 Les 4 États d'un fichier</h4>
+        <p class="text-gray-700 mb-6">Git classe chaque fichier de votre dossier dans une de ces 4 catégories. C'est CRUCIAL de bien comprendre la différence.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
+            <!-- État 1 : Untracked -->
+            <div class="border-2 border-dashed border-gray-400 p-4 rounded bg-gray-50 opacity-75">
+                <div class="text-2xl mb-2">👻</div>
+                <h5 class="font-bold text-gray-600 mb-2">Untracked</h5>
+                <p class="text-xs text-gray-500">"Non suivi"</p>
+                <p class="text-xs mt-2 text-left bg-white p-2 rounded border">Fichier nouveau que Git ne connait pas encore. Il n'est pas dans l'album photo.</p>
+            </div>
+
+            <!-- État 2 : Modified -->
+            <div class="border-2 border-red-200 p-4 rounded bg-red-50">
+                <div class="text-2xl mb-2">📝</div>
+                <h5 class="font-bold text-red-600 mb-2">Modified</h5>
+                <p class="text-xs text-red-500">"Modifié"</p>
+                <p class="text-xs mt-2 text-left bg-white p-2 rounded border">Fichier connu de Git, que vous avez changé mais pas encore préparé pour la photo.</p>
+            </div>
+
+            <!-- État 3 : Staged -->
+            <div class="border-2 border-green-200 p-4 rounded bg-green-50">
+                <div class="text-2xl mb-2">📦</div>
+                <h5 class="font-bold text-green-600 mb-2">Staged</h5>
+                <p class="text-xs text-green-500">"Indexé / Prêt"</p>
+                <p class="text-xs mt-2 text-left bg-white p-2 rounded border">Fichier mis dans le carton (Index). Il est prêt à être commité.</p>
+            </div>
+
+            <!-- État 4 : Committed -->
+            <div class="border-2 border-blue-200 p-4 rounded bg-blue-50">
+                <div class="text-2xl mb-2">🔒</div>
+                <h5 class="font-bold text-blue-600 mb-2">Committed</h5>
+                <p class="text-xs text-blue-500">"Validé"</p>
+                <p class="text-xs mt-2 text-left bg-white p-2 rounded border">La version est enregistrée dans la base de données locale. Elle est en sécurité.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== CHAPITRE 2 : ADD & GITIGNORE ========== -->
+<section id="add-gitignore" class="mb-16">
+    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Chapitre 2 : Ajouter (Add) et Ignorer (.gitignore)</h3>
+
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">2.1 La commande git add</h4>
+        <p class="text-gray-700 mb-4">
+            <code>git add</code> sert à passer un fichier de l'état <strong>Untracked</strong> ou <strong>Modified</strong> à l'état <strong>Staged</strong>.
+        </p>
+
+        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto mb-4">
+# Ajouter un seul fichier
+$ git add index.html
+
+# Ajouter plusieurs fichiers spécifiques
+$ git add style.css script.js
+
+# Ajouter tout un dossier
+$ git add images/
+
+# ⚡ Ajouter TOUT (nouveaux, modifiés, supprimés) - Le plus utilisé
+$ git add .
+
+# Ajouter tout (alternative, pareil que .)
+$ git add -A</pre>
+        
+        <div class="bg-yellow-50 p-4 rounded border-l-4 border-yellow-500">
+            <p class="text-sm text-yellow-800"><strong>Attention :</strong> Si vous modifiez un fichier APRES l'avoir ajouté (staged), vous devez refaire <code>git add</code> pour prendre en compte les dernières modifs !</p>
+        </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">2.2 Le fichier .gitignore</h4>
+        <p class="text-gray-700 mb-4">
+            Certains fichiers ne doivent JAMAIS être committés (mots de passe, fichiers temporaires, dossiers de build, dépendances lourdes...).
+            Pour ça, on crée un fichier texte nommé <code>.gitignore</code> à la racine.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+            <div>
+                <h5 class="font-bold text-gray-700 mb-2">Syntaxe et Exemples :</h5>
+                <pre class="bg-gray-100 p-4 rounded text-sm text-gray-800 border">
+# Ignorer un fichier spécifique
+secret.txt
+.env
+
+# Ignorer par extension
+*.log
+*.tmp
+*.psd
+
+# Ignorer un dossier complet
+node_modules/
+vendor/
+build/
+
+# Ignorer tout sauf...
+!index.html</pre>
+            </div>
+            <div>
+                <h5 class="font-bold text-gray-700 mb-2">Pourquoi c'est important ?</h5>
+                <ul class="list-disc ml-4 text-sm text-gray-600 space-y-2">
+                    <li><strong>Sécurité :</strong> Ne pas publier vos clés API.</li>
+                    <li><strong>Propreté :</strong> Ne pas polluer l'historique avec des fichiers générés.</li>
+                    <li><strong>Performance :</strong> Git n'a pas besoin de scanner les dossiers géants comme <code>node_modules</code>.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== CHAPITRE 3 : STATUS & COMMIT ========== -->
+<section id="status-commit" class="mb-16">
+    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Chapitre 3 : Vérifier (Status) et Valider (Commit)</h3>
+
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">3.1 git status (Le tableau de bord)</h4>
+        <p class="text-gray-700 mb-4">
+            Affiche l'état actuel de votre Working Directory et de votre Staging Area.
+        </p>
+
+        <pre class="bg-gray-800 text-white p-4 rounded text-sm overflow-x-auto mb-4">
+$ git status
+
+<span class="text-red-400">Untracked files:</span>
+  (use "git add <file>..." to include in what will be committed)
+    <span class="text-red-400">nouveau_fichier.txt</span>
+
+<span class="text-green-400">Changes to be committed:</span>
+  (use "git restore --staged <file>..." to unstage)
+    <span class="text-green-400">new file:   style.css</span>
+    <span class="text-green-400">modified:   index.html</span></pre>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">3.2 git commit (La validation)</h4>
+        <p class="text-gray-700 mb-4">
+            Crée une nouvelle version avec tout ce qui est dans la Staging Area.
+        </p>
+
+        <div class="space-y-4">
+            <div>
+                <h5 class="font-bold text-gray-700">1. Commit classique (Recommandé)</h5>
+                <pre class="bg-gray-800 text-green-400 p-3 rounded text-sm">$ git commit -m "Message clair et concis"</pre>
+            </div>
+
+            <div>
+                <h5 class="font-bold text-gray-700">2. L'option -a (All modified)</h5>
+                <p class="text-sm text-gray-600 mb-1">Ajoute automatiquement les fichiers <strong>déjà suivis (modified)</strong> et commit. ⚠️ Ne marche pas pour les fichiers Untracked (nouveaux) !</p>
+                <pre class="bg-gray-800 text-green-400 p-3 rounded text-sm">$ git commit -a -m "Message rapide"</pre>
+            </div>
+
+            <div>
+                <h5 class="font-bold text-gray-700">3. Le combo ultime (-am)</h5>
+                <pre class="bg-gray-800 text-green-400 p-3 rounded text-sm">$ git commit -am "Ajoute et commit les modifs en une fois"</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-green-50 p-6 rounded-lg border border-green-200">
+        <h4 class="text-xl font-bold text-green-800 mb-4">💪 Exercices Pratiques</h4>
+        <ol class="list-decimal ml-6 space-y-4 text-green-900">
+            <li>
+                <strong>Initialisation :</strong> Créez un dossier <code>test-git</code>, entrez dedans et tapez <code>git init</code>.
+            </li>
+            <li>
+                <strong>Création :</strong> Créez un fichier <code>index.html</code> et tapez <code>git status</code> (Il doit être Untracked/Rouge).
+            </li>
+            <li>
+                <strong>Staging :</strong> Tapez <code>git add index.html</code> puis <code>git status</code> (Il doit être Staged/Vert).
+            </li>
+            <li>
+                <strong>Commit :</strong> Tapez <code>git commit -m "Premier commit"</code>.
+            </li>
+            <li>
+                <strong>Modification :</strong> Modifiez le fichier. Tapez <code>git status</code>. Essayez <code>git commit -am "Mise à jour"</code>.
+            </li>
+            <li>
+                <strong>Gitignore :</strong> Créez un fichier <code>secret.txt</code>. Créez un fichier <code>.gitignore</code> et écrivez <code>secret.txt</code> dedans. Vérifiez avec <code>git status</code> que le fichier secret n'apparait plus !
+            </li>
+        </ol>
+
+        <!-- Solution Masquée -->
+        <div class="mt-6 border-t border-green-200 pt-4">
+            <details>
+                <summary class="cursor-pointer bg-green-600 text-white px-4 py-2 rounded inline-block hover:bg-green-700 transition select-none">
+                    👁️ Voir la solution
+                </summary>
+                
+                <div class="mt-4 bg-gray-900 text-green-400 p-4 rounded text-sm font-mono overflow-x-auto shadow-inner">
+<pre># 1. Initialisation
+$ mkdir test-git
+$ cd test-git
+$ git init
+
+# 2. Création (Sur Windows, utilisez l'explorateur ou echo)
+$ echo "Hello" > index.html
+$ git status
+
+# 3. Staging
+$ git add index.html
+$ git status
+
+# 4. Commit
+$ git commit -m "Premier commit"
+
+# 5. Modification
+$ echo "Modif" >> index.html
+$ git status
+$ git commit -am "Mise à jour"
+
+# 6. Gitignore
+$ echo "Secret" > secret.txt
+$ echo "secret.txt" > .gitignore
+$ git status
+# Le fichier secret.txt ne doit PAS apparaitre</pre>
+                </div>
+            </details>
         </div>
     </div>
 </section>

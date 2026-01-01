@@ -1,201 +1,269 @@
 <!-- =================================================================== -->
-<!-- PARTIE 2 : INITIALISATION ET PLANIFICATION DES TÂCHES -->
+<!-- PARTIE 2 : ARCHITECTURE INTERNE (L'ÂME DE GIT) -->
 <!-- =================================================================== -->
-<h2 class="text-3xl font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-6">Partie 2 : Initialisation et Planification des Tâches</h2>
+<h2 class="text-3xl font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-6">Partie 2 : Architecture Interne (L'âme de Git)</h2>
 
-<section id="interface-msp" class="mb-16">
-    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Chapitre 1 : L'interface de MS Project</h3>
-       <img src = "img/menu.png" alt = "Menu MS Project" class = "m-auto w-full zoomable" />
-    
-    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-        <p class="text-gray-700 mb-4">L'interface utilise le "Ruban" (Ribbon) similaire aux autres outils Office.</p>
-        
-         <ul class="list-disc ml-6 text-gray-700 space-y-2">
-            <li><strong>Onglet Tâche :</strong> Pour créer, lier, et formater les tâches.</li>
-            <li><strong>Onglet Ressource :</strong> Pour gérer l'équipe et le matériel.</li>
-            <li><strong>Onglet Projet :</strong> Pour les informations globales et les calendriers.</li>
-            <li><strong>Onglet Rapport :</strong> Pour générer des rapports visuels et des tableaux de bord.</li>
-            <li><strong>Onglet Affichage :</strong> Pour basculer entre Gantt, Tableau des ressources, etc.</li>
-            <li><strong>La Chronologie (Timeline) :</strong> Vue synthétique en haut de l'écran.</li>
-        </ul>
-    </div>
-</section>
-
-<section id="parametrage-projet" class="mb-16">
-    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Chapitre 2 : Paramétrage du Projet</h3>
-    
-    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">2.1 Informations sur le projet</h4>
-        <p class="text-gray-700 mb-4">La première étape consiste à définir la <strong>Date de début</strong> du projet. Par défaut, MS Project planifie à partir de cette date (Planning prévisionnel).</p>
-        
-        <div class="bg-blue-50 p-4 rounded border-l-4 border-blue-500 mt-4">
-            <h5 class="font-bold text-blue-900 mb-2">👉 Comment faire ?</h5>
-            <ul class="list-decimal ml-5 text-sm text-blue-800 space-y-2">
-                <li>Allez dans l'onglet <strong>PROJET</strong>.</li>
-                <li>Cliquez sur le bouton <strong>Informations sur le projet</strong>.</li>
-                <li>Dans la fenêtre, saisissez la date dans le champ <strong>Date de début</strong>.</li>
-                <li>Validez par <strong>OK</strong>.</li>
-            </ul>
-        </div>
-        <img src = "img/infos.png" alt = "Informations sur le projet" class = "m-auto zoomable" />
-    </div>
+<!-- ========== CHAPITRE 1 : LES OBJETS GIT ========== -->
+<section id="objets-git" class="mb-16">
+    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Chapitre 1 : Les Objets Git (Blobs, Trees, Commits, Tags)</h3>
 
     <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">2.2 Création d'un nouveau calendrier</h4>
-        <p class="text-gray-700 mb-4">Le calendrier définit les heures ouvrées. MS Project propose 3 modèles de base (Standard, 24h, Nuit), mais il est recommandé de créer son propre calendrier pour le projet.</p>
-        
-        <div class="bg-blue-50 p-4 rounded border-l-4 border-blue-500 mt-4">
-            <h5 class="font-bold text-blue-900 mb-2">👉 Comment faire ?</h5>
-            <ul class="list-decimal ml-5 text-sm text-blue-800 space-y-2">
-                <li>Allez dans l'onglet <strong>PROJET</strong> > <strong>Modifier les horaires de travail</strong>.</li>
-                <li>Cliquez sur le bouton <strong>Créer un nouveau calendrier</strong> (en haut à droite).</li>
-                <li>Donnez un nom (ex: "Calendrier Projet A") et cochez "Faire une copie de Standard".</li>
-                <li>Validez par <strong>OK</strong>.</li>
-            </ul>
-        </div>
-        <img src = "img/calendrier.png" alt = "Calendier ms project" class = "m-auto zoomable" />
-    </div>
-
-    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">2.3 Ajouter le samedi matin (9h - 14h)</h4>
-        <p class="text-gray-700 mb-4">Par défaut, le samedi est chômé. Voici comment le rendre ouvré.</p>
-        
-        <div class="bg-blue-50 p-4 rounded border-l-4 border-blue-500 mt-4">
-            <h5 class="font-bold text-blue-900 mb-2">👉 Comment faire ?</h5>
-            <ul class="list-decimal ml-5 text-sm text-blue-800 space-y-2">
-                <li>Toujours dans la fenêtre "Modifier les horaires de travail", assurez-vous que votre nouveau calendrier est sélectionné en haut.</li>
-                <li>Allez dans l'onglet <strong>Semaines de travail</strong> (en bas).</li>
-                <li>Cliquez sur la ligne "[Défaut]" puis sur le bouton <strong>Détails...</strong> (à droite).</li>
-                <li>Dans la liste de gauche, sélectionnez <strong>Samedi</strong>.</li>
-                <li>Cochez <strong>Définir des heures de travail spécifiques pour ces jours</strong>.</li>
-                <li>Dans le tableau, saisissez : <strong>De : 09:00</strong> | <strong>À : 14:00</strong>.</li>
-                <li>Validez par <strong>OK</strong> deux fois.</li>
-            </ul>
-        </div>
-        <img src = "img/jours.png" alt = "Jours de la semaine en ms project" class = "m-auto zoomable" />
-    </div>
-
-    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">2.4 Appliquer le nouveau calendrier au projet</h4>
-        <p class="text-gray-700 mb-4">Créer un calendrier ne suffit pas, il faut dire à MS Project de l'utiliser pour ce projet.</p>
-        
-        <div class="bg-blue-50 p-4 rounded border-l-4 border-blue-500 mt-4">
-            <h5 class="font-bold text-blue-900 mb-2">👉 Comment faire ?</h5>
-            <ul class="list-decimal ml-5 text-sm text-blue-800 space-y-2">
-                <li>Allez dans l'onglet <strong>PROJET</strong> > <strong>Informations sur le projet</strong>.</li>
-                <li>Dans la liste déroulante <strong>Calendrier</strong>, choisissez votre nouveau calendrier.</li>
-                <li>Validez par <strong>OK</strong>.</li>
-            </ul>
-        </div>
-        <img src = "img/infos.png" alt = "Informations sur le projet" class = "m-auto zoomable" />
-    </div>
-
-    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">2.5 Changer la devise (MAD)</h4>
-        <p class="text-gray-700 mb-4">Pour travailler avec des Dirhams Marocains au lieu de l'Euro ou du Dollar.</p>
-        
-        <div class="bg-blue-50 p-4 rounded border-l-4 border-blue-500 mt-4">
-            <h5 class="font-bold text-blue-900 mb-2">👉 Comment faire ?</h5>
-            <ul class="list-decimal ml-5 text-sm text-blue-800 space-y-2">
-                <li>Cliquez sur l'onglet <strong>FICHIER</strong> (tout à gauche) > <strong>Options</strong>.</li>
-                <li>Dans la fenêtre, cliquez sur l'onglet <strong>Affichage</strong> (à gauche).</li>
-                <li>En bas, dans la section "Options de devise pour ce projet" :
-                    <ul class="list-disc ml-5 mt-1">
-                        <li><strong>Symbole :</strong> Saisissez "MAD" ou "DH".</li>
-                        <li><strong>Placement :</strong> Choisissez "100 MAD" (après le nombre).</li>
-                    </ul>
-                </li>
-                <li>Validez par <strong>OK</strong>.</li>
-            </ul>
-        </div>
-        <img src = "img/options.png" alt = "Options ms project" class = "m-auto zoomable" />
-    </div>
-</section>
-
-<section id="saisie-taches" class="mb-16">
-    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Chapitre 3 : Saisie et Structuration des Tâches</h3>
-
-     <img src = "img/gantt.png" alt = "Options ms project" class = "m-auto zoomable" />
-    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">3.1 Mode de Tâche (Auto vs Manuel)</h4>
-        <p class="text-gray-700 mb-4">
-            MS Project propose deux modes de planification. Il est <strong>fortement recommandé</strong> d'utiliser le mode <strong>Automatique</strong>.
+        <h4 class="text-xl font-bold text-gray-800 mb-4">1.1 Le modèle objet de Git</h4>
+        <p class="text-gray-700 mb-4 text-justify">
+            Git est fondamentalement une <strong>base de données clé-valeur adressée par contenu</strong>. Tout dans Git est stocké sous forme d'objets identifiés par leur hash SHA-1 (40 caractères hexadécimaux).
         </p>
-        <ul class="list-disc ml-6 text-gray-700 space-y-2 mb-4">
-            <li><strong>Planification Manuelle (Punaise) :</strong> Les dates ne bougent pas, même si les liens changent. Utile pour figer des dates, mais dangereux pour le calcul dynamique.</li>
-            <li><strong>Planification Automatique (Rectangle bleu) :</strong> MS Project calcule les dates en fonction des liens, durées et calendriers.</li>
-        </ul>
-        <div class="bg-blue-50 p-4 rounded border-l-4 border-blue-500 mt-4">
-            <h5 class="font-bold text-blue-900 mb-2">👉 Comment faire ?</h5>
-            <p class="text-sm text-blue-800">En bas à gauche de la fenêtre, cliquez sur "Nouvelles tâches : Planifiées manuellement" et changez-le en <strong>"Nouvelles tâches : Planifiées automatiquement"</strong>.</p>
+        
+        <div class="bg-purple-50 p-4 rounded border-l-4 border-purple-500 mb-4">
+            <p class="text-sm text-purple-800"><strong>Principe fondamental :</strong> Le même contenu produit toujours le même hash. Deux fichiers identiques = un seul objet blob stocké.</p>
         </div>
-      <img src = "img/auto.png" alt = "Tâches automatiques ms project" class = "m-auto zoomable" />
 
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-blue-50 p-4 rounded border-t-4 border-blue-500">
+                <h5 class="font-bold text-blue-900 mb-2">📄 Blob</h5>
+                <p class="text-sm text-blue-800">Contenu brut d'un fichier (sans nom ni métadonnées). Un blob = une version d'un fichier.</p>
+            </div>
+            <div class="bg-green-50 p-4 rounded border-t-4 border-green-500">
+                <h5 class="font-bold text-green-900 mb-2">Tree</h5>
+                <p class="text-sm text-green-800">Représente un répertoire. Contient des références vers des blobs (fichiers) et d'autres trees (sous-dossiers).</p>
+            </div>
+            <div class="bg-orange-50 p-4 rounded border-t-4 border-orange-500">
+                <h5 class="font-bold text-orange-900 mb-2">Commit</h5>
+                <p class="text-sm text-orange-800">Pointe vers un tree (snapshot) + métadonnées (auteur, date, message, parent(s)).</p>
+            </div>
+            <div class="bg-red-50 p-4 rounded border-t-4 border-red-500">
+                <h5 class="font-bold text-red-900 mb-2">Tag</h5>
+                <p class="text-sm text-red-800">Référence nommée vers un commit, généralement utilisé pour marquer les releases.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">1.2 Explorer les objets avec les commandes plumbing</h4>
+        
+        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto mb-4">
+# Voir le type d'un objet
+$ git cat-file -t abc1234
+commit
+
+# Voir le contenu d'un objet
+$ git cat-file -p abc1234
+tree 9f83d7b2c...
+parent 5a2e8c1...
+author Oussama <o@mail.com> 1704067200 +0100
+committer Oussama <o@mail.com> 1704067200 +0100
+
+Message du commit
+
+# Voir la taille d'un objet
+$ git cat-file -s abc1234
+245</pre>
+
+        <div class="bg-gray-100 p-4 rounded">
+            <h5 class="font-bold text-gray-800 mb-2">🔍 Exemple pratique : Anatomie d'un commit</h5>
+            <pre class="bg-gray-800 text-green-400 p-3 rounded text-sm overflow-x-auto">
+$ git cat-file -p HEAD
+tree 4b825dc642cb6eb9a060e54bf8d69288fbee4904
+parent a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0
+author F. Rahmouni Oussama <ousrah@gmail.com> 1704067200 +0100
+committer F. Rahmouni Oussama <ousrah@gmail.com> 1704067200 +0100
+
+feat: Ajout du système d'authentification</pre>
+        </div>
     </div>
 
     <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-        <h4 class="text-xl font-bold text-gray-800 mb-2">3.2 WBS (Work Breakdown Structure)</h4>
-        <p class="text-gray-700 mb-4">
-            Il est essentiel de structurer le projet en phases et sous-tâches. Dans MS Project, on utilise l'indentation (Abaisser/Hausser la tâche) pour créer cette hiérarchie.
-        </p>
-        <ul class="list-disc ml-6 text-gray-700 space-y-1 mb-4">
-            <li><strong>Tâche Récapitulative :</strong> Tâche parente (en gras) qui résume la durée et le coût de ses sous-tâches.</li>
-            <li><strong>Jalon (Milestone) :</strong> Tâche de durée 0 jour, marquant une étape clé (ex: "Validation Client").</li>
-        </ul>
-
-        <div class="bg-blue-50 p-4 rounded border-l-4 border-blue-500 mt-4">
-            <h5 class="font-bold text-blue-900 mb-2">👉 Comment faire ?</h5>
-            <ul class="list-decimal ml-5 text-sm text-blue-800 space-y-2">
-                <li><strong>Créer une phase (Indenter) :</strong> Sélectionnez la ou les tâches à mettre en sous-tâche > Allez dans l'onglet <strong>TÂCHE</strong> > Groupe <em>Planifier</em> > Cliquez sur l'icône <strong>Abaisser la tâche</strong> (Flèche verte vers la droite).</li>
-                <li><strong>Créer un Jalon :</strong> Saisissez "0 jour" dans la colonne <em>Durée</em> d'une tâche OU Double-cliquez sur la tâche > Onglet <em>Avancées</em> > Cochez <strong>Marquer la tâche en tant que jalon</strong>.</li>
-            </ul>
+        <h4 class="text-xl font-bold text-gray-800 mb-4">1.3 Tags légers vs Tags annotés</h4>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-gray-50 p-4 rounded">
+                <h5 class="font-bold text-gray-900 mb-2">🏷️ Tag léger (lightweight)</h5>
+                <p class="text-sm text-gray-700 mb-2">Simple pointeur vers un commit. Pas d'objet tag créé.</p>
+                <pre class="bg-gray-800 text-green-400 p-2 rounded text-xs overflow-x-auto">
+$ git tag v1.0.0
+# Crée juste une référence dans .git/refs/tags/</pre>
+            </div>
+            <div class="bg-yellow-50 p-4 rounded">
+                <h5 class="font-bold text-yellow-900 mb-2">🏷️ Tag annoté (recommandé)</h5>
+                <p class="text-sm text-yellow-800 mb-2">Objet complet avec message, auteur, date et signature possible.</p>
+                <pre class="bg-gray-800 text-green-400 p-2 rounded text-xs overflow-x-auto">
+$ git tag -a v1.0.0 -m "Release stable 1.0"
+# Crée un objet tag + une référence</pre>
+            </div>
         </div>
-              <img src = "img/jalon.png" alt = "jalons ms project" class = "m-auto zoomable" />
 
+        <div class="mt-4 bg-blue-50 p-4 rounded border-l-4 border-blue-500">
+            <p class="text-sm text-blue-800"><strong>✅ Bonne pratique :</strong> Utilisez toujours des tags annotés pour les releases. Ils peuvent être signés avec GPG et contiennent des métadonnées traçables.</p>
+        </div>
     </div>
 </section>
 
-<section id="ordonnancement" class="mb-16">
-    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Chapitre 4 : Ordonnancement (Prédécesseurs)</h3>
+<!-- ========== CHAPITRE 2 : LE DOSSIER .GIT ========== -->
+<section id="dossier-git" class="mb-16">
+    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Chapitre 2 : Le dossier .git (Index et Références)</h3>
+
     <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
-      <img src = "img/lien.png" alt = "liens ms project" class = "m-auto zoomable" />
+        <h4 class="text-xl font-bold text-gray-800 mb-4">2.1 Anatomie du dossier .git</h4>
         
-    <h4 class="text-xl font-bold text-gray-800 mb-4">Les 4 types de liaisons</h4>
+        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto mb-4">
+.git/
+├── HEAD              # Pointeur vers la branche/commit actuel
+├── config            # Configuration locale du dépôt
+├── description       # Description (utilisé par GitWeb)
+├── index             # La staging area (zone de préparation)
+├── hooks/            # Scripts automatiques (pre-commit, etc.)
+├── info/
+│   └── exclude       # Patterns à ignorer (local, sans .gitignore)
+├── objects/          # Base de données des objets Git
+│   ├── pack/         # Objets compressés (packfiles)
+│   └── [xx]/[...]    # Objets individuels (2 premiers chars = dossier)
+├── refs/
+│   ├── heads/        # Branches locales
+│   ├── tags/         # Tags
+│   └── remotes/      # Branches distantes (origin/main, etc.)
+└── logs/             # Historique des références (reflog)</pre>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">2.2 HEAD : Le pointeur magique</h4>
+        <p class="text-gray-700 mb-4">
+            <code class="bg-gray-100 px-2 py-1 rounded">HEAD</code> est un pointeur symbolique qui indique où vous êtes actuellement dans l'historique.
+        </p>
+        
+        <div class="grid md:grid-cols-2 gap-4 mb-4">
+            <div class="bg-green-50 p-4 rounded">
+                <h5 class="font-bold text-green-900 mb-2">État normal</h5>
+                <pre class="bg-gray-800 text-green-400 p-2 rounded text-xs">
+$ cat .git/HEAD
+ref: refs/heads/main
+
+# HEAD pointe vers une branche</pre>
+            </div>
+            <div class="bg-red-50 p-4 rounded">
+                <h5 class="font-bold text-red-900 mb-2">Detached HEAD</h5>
+                <pre class="bg-gray-800 text-green-400 p-2 rounded text-xs">
+$ cat .git/HEAD
+a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p
+
+# HEAD pointe directement vers un commit</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">2.3 L'Index (Staging Area)</h4>
+        <p class="text-gray-700 mb-4">
+            L'index est un fichier binaire (<code>.git/index</code>) qui représente le prochain commit que vous allez créer. C'est une "zone de préparation" entre votre working directory et l'historique.
+        </p>
+        
+        <div class="bg-blue-50 p-4 rounded border-l-4 border-blue-500 mb-4">
+            <p class="text-sm text-blue-800"><strong>💡 Les 3 états d'un fichier :</strong></p>
+            <ol class="list-decimal ml-4 text-sm text-blue-800 mt-2 space-y-1">
+                <li><strong>Working Directory</strong> : Vos fichiers modifiés localement</li>
+                <li><strong>Staging Area (Index)</strong> : Modifications prêtes pour le prochain commit</li>
+                <li><strong>Repository</strong> : L'historique des commits (.git/objects)</li>
+            </ol>
+        </div>
+
+        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto">
+# Voir le contenu de l'index
+$ git ls-files -s
+100644 e69de29bb2d1d6434b8b29ae775ad8c2e48c5391 0	README.md
+100644 8baef1b4abc74f56a91f1e8a9875c5e2e7b09c73 0	src/app.js
+
+# Format: mode | hash du blob | stage | chemin</pre>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">2.4 Les Références (refs)</h4>
+        
+        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto mb-4">
+# Voir toutes les références
+$ git show-ref
+a1b2c3d4... refs/heads/main
+e5f6g7h8... refs/heads/feature/login
+i9j0k1l2... refs/remotes/origin/main
+m3n4o5p6... refs/tags/v1.0.0
+
+# Une branche = un fichier contenant un hash de commit
+$ cat .git/refs/heads/main
+a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0</pre>
+
+        <div class="bg-yellow-50 p-4 rounded border-l-4 border-yellow-500">
+            <p class="text-sm text-yellow-800"><strong>⚡ Pourquoi les branches sont légères dans Git :</strong> Une branche n'est qu'un fichier texte de 41 octets (40 caractères hex + newline) pointant vers un commit. Créer ou supprimer une branche est instantané !</p>
+        </div>
+    </div>
+</section>
+
+<!-- ========== CHAPITRE 3 : HACHAGE & INTÉGRITÉ ========== -->
+<section id="hachage-integrite" class="mb-16">
+    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Chapitre 3 : Hachage & Intégrité (SHA-1/SHA-256)</h3>
+
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">3.1 Le rôle du SHA-1</h4>
+        <p class="text-gray-700 mb-4">
+            Chaque objet Git est identifié par un hash SHA-1 de 160 bits (40 caractères hex), calculé à partir de son contenu + type + taille.
+        </p>
+        
+        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto mb-4">
+# Comment Git calcule le hash d'un blob
+$ echo -n "blob 13\0Hello World!\n" | sha1sum
+8ab686eafeb1f44702738c8b0f24f2567c36da6d
+
+# Équivalent avec git hash-object
+$ echo "Hello World!" | git hash-object --stdin
+8ab686eafeb1f44702738c8b0f24f2567c36da6d</pre>
+
         <div class="grid md:grid-cols-2 gap-4">
-            <div class="border p-3 rounded"><strong>Fin à Début (FD) :</strong> B ne commence que si A est fini. (Standard).
-            <br>   
-               <img src = "img/FD.png" alt = "lien fd fin à début ms project" class = "m-auto zoomable" />
-</div>
-            <div class="border p-3 rounded"><strong>Début à Début (DD) :</strong> B commence en même temps que A.
-        <br>   
-               <img src = "img/DD.png" alt = "lien dd début à début ms project" class = "m-auto zoomable" />
+            <div class="bg-green-50 p-4 rounded">
+                <h5 class="font-bold text-green-900 mb-2">✅ Garanties d'intégrité</h5>
+                <ul class="list-disc ml-4 text-sm text-green-800 space-y-1">
+                    <li>Toute modification change le hash</li>
+                    <li>Impossible de falsifier l'historique sans recalculer tous les hashs suivants</li>
+                    <li>Vérification automatique à chaque clone/fetch</li>
+                </ul>
             </div>
-            <div class="border p-3 rounded"><strong>Fin à Fin (FF) :</strong> B ne peut pas finir tant que A n'est pas fini.
-        <br>   
-               <img src = "img/FF.png" alt = "lien ff fin à fin ms project" class = "m-auto zoomable" />
-            </div>
-            <div class="border p-3 rounded"><strong>Début à Fin (DF) :</strong> Rare. B ne peut pas finir tant que A n'a pas commencé.
-        <br>   
-               <img src = "img/DF.png" alt = "lien fd fin à début ms project" class = "m-auto zoomable" />
+            <div class="bg-orange-50 p-4 rounded">
+                <h5 class="font-bold text-orange-900 mb-2">⚠️ Collision théorique</h5>
+                <p class="text-sm text-orange-800">Avec 2^160 possibilités, la probabilité de collision est astronomiquement faible. Mais des attaques de collision SHA-1 existent (SHAttered, 2017).</p>
             </div>
         </div>
     </div>
-    
-    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">Lag et Lead (Décalages)</h4>
+
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">3.2 Transition vers SHA-256</h4>
         <p class="text-gray-700 mb-4">
-            On peut ajouter un délai positif (Lag) ou négatif (Lead) sur un lien.
-            <br><em>Exemple :</em> "Peindre le mur" (FD + 2 jours de séchage) -> "Accrocher les tableaux".
+            Git prépare une transition vers SHA-256 pour renforcer la sécurité cryptographique. Depuis Git 2.29 (2020), le support expérimental est disponible.
         </p>
         
-        <div class="bg-blue-50 p-4 rounded border-l-4 border-blue-500 mt-4">
-            <h5 class="font-bold text-blue-900 mb-2">👉 Comment faire ?</h5>
-            <ul class="list-decimal ml-5 text-sm text-blue-800 space-y-2">
-                <li><strong>Lier des tâches :</strong> Sélectionnez les tâches (Ctrl + Clic) > Onglet <strong>TÂCHE</strong> > Groupe <em>Planifier</em> > Cliquez sur l'icône <strong>Lier les tâches sélectionnées</strong> (Chaîne).</li>
-                <li><strong>Ajouter un décalage :</strong> Double-cliquez sur la flèche de lien directement sur le diagramme de Gantt > Une fenêtre s'ouvre > Saisissez une valeur (ex: "2j" ou "-1j") dans le champ <strong>Retard</strong>.</li>
-            </ul>
+        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto mb-4">
+# Créer un nouveau dépôt avec SHA-256 (expérimental)
+$ git init --object-format=sha256
+
+# Vérifier le format d'objet
+$ git config core.repositoryFormatVersion</pre>
+
+        <div class="bg-purple-50 p-4 rounded border-l-4 border-purple-500">
+            <p class="text-sm text-purple-800"><strong>🔮 Avenir :</strong> SHA-256 offre 256 bits (vs 160 pour SHA-1), rendant les attaques par collision pratiquement impossibles avec la technologie actuelle. La migration complète sera progressive pour assurer la compatibilité.</p>
         </div>
-        <br>   
-               <img src = "img/decalage.png" alt = "décalage des liens ms project" class = "m-auto zoomable" />
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">3.3 Vérification de l'intégrité</h4>
+        
+        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto mb-4">
+# Vérifier l'intégrité complète du dépôt
+$ git fsck
+Checking object directories: 100% (256/256), done.
+Checking objects: 100% (1234/1234), done.
+
+# Vérifier avec plus de détails
+$ git fsck --full --strict
+
+# Vérifier la connectivité des références
+$ git fsck --connectivity-only</pre>
+
+        <div class="bg-red-50 p-4 rounded border-l-4 border-red-500">
+            <p class="text-sm text-red-800"><strong>🚨 Si fsck détecte des erreurs :</strong> Des objets corrompus ou manquants peuvent indiquer un problème de disque, une interruption pendant une opération, ou une manipulation malveillante. Consultez le chapitre sur le Disaster Recovery.</p>
+        </div>
     </div>
 </section>

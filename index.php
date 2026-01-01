@@ -10,6 +10,9 @@ require_once './partials/partie_4.php';
 require_once './partials/partie_5.php';
 require_once './partials/partie_6.php';
 require_once './partials/partie_7.php';
+require_once './partials/partie_8.php';
+require_once './partials/partie_9.php';
+require_once './partials/partie_10.php';
 
 require_once './layout/footer.php';
 ?>

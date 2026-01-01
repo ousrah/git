@@ -1,249 +1,292 @@
 <!-- =================================================================== -->
-<!-- PARTIE 3 : ANALYSE DU RÉSEAU ET OPTIMISATION TEMPORELLE -->
+<!-- PARTIE 3 : FLUX LOCAL ET ANALYSE DE DIFFÉRENCES -->
 <!-- =================================================================== -->
-<h2 class="text-3xl font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-6">Partie 3 : Analyse du Réseau et Optimisation Temporelle</h2>
+<h2 class="text-3xl font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-6">Partie 3 : Flux Local et Analyse de Différences</h2>
 
-<section id="pert-manuel" class="mb-16">
-    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Chapitre 1 : Le Diagramme de PERT Manuel</h3>
+<!-- ========== CHAPITRE 1 : CYCLE DE VIE ========== -->
+<section id="cycle-vie" class="mb-16">
+    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Chapitre 1 : Cycle de vie des fichiers</h3>
+
     <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">1.1 Les 4 états d'un fichier</h4>
         
-        <h4 class="text-xl font-bold text-gray-800 mb-4">Comment créer un diagramme PERT ? Les étapes.</h4>
-        <p class="text-gray-700 mb-4">
-            Comment suivre l'avancement d'un projet, organiser et coordonner l’enchaînement des tâches ? Il s'agit de la finalité de la méthode PERT à utiliser de concert avec un diagramme de Gantt. Un outil particulièrement précieux pour des projets complexes où des tâches sont interdépendantes avec des chemins parallèles. L'objectif étant de maîtriser le délai de réalisation.
-        </p>
-        <p class="text-gray-700 mb-4">
-            Le nom représente l'acronyme de "Program Evaluation and Review Technic". Il s'agit d'un outil visuel d'ordonnancement et de planification de projet.
-        </p>
-        <p class="text-gray-700 mb-4">
-            Son but est d'organiser les tâches sous la forme d'un réseau afin de faciliter la gestion du projet. Cette représentation graphique permet d'identifier les connexions entre les différentes tâches, les temps d'exécution, les interdépendances.
-        </p>
-        <div class="bg-blue-50 p-4 rounded border-l-4 border-blue-500 mb-6">
-            <p class="text-sm text-blue-800">
-                <strong>A savoir :</strong> le PERT est proche de la méthode du chemin critique (Critical Path Method - CPM) qui a pour objectif d'identifier le chemin permettant le temps de réalisation le plus court possible, non compressible.
-            </p>
-        </div>
-
-        <h4 class="text-xl font-bold text-gray-800 mb-4">Pourquoi utiliser le Réseau P.E.R.T. ?</h4>
-        <p class="text-gray-700 mb-2">Cet outil facilite la maîtrise du projet. En effet, il permet de :</p>
-        <ul class="list-disc ml-6 text-gray-700 space-y-1 mb-6">
-            <li>Donner une vue réelle de la livraison du projet,</li>
-            <li>Anticiper l'affectation des ressources humaines et financières, des moyens techniques,</li>
-            <li>Identifier les tâches à traiter plus rapidement si l'on souhaite livrer le projet plus tôt,</li>
-            <li>Repérer les tâches à traiter simultanément (travail en parallèle) et les tâches antérieures,</li>
-            <li>Identifier les tâches critiques et le non-critique pour tenir les délais - permet par exemple de redéployer des ressources si nécessaire,</li>
-            <li>Préparer la construction d'un planning Gantt.</li>
-            <li>Affecter des responsabilités (voir la méthode RACI).</li>
-        </ul>
-
-        <h4 class="text-xl font-bold text-gray-800 mb-4">Représentation graphique du diagramme</h4>
-        <p class="text-gray-700 mb-4">
-            Le diagramme s'organise sous forme de réseau. Il possède un début et une fin, des étapes et des tâches.
-        </p>
-        <p class="text-gray-700 mb-4">
-            Les tâches sont représentées par des flèches encadrées par 2 étapes (ou nœuds). Chaque étape possède une date au plus tôt et une date au plus tard.
-        </p>
-        
-        <div class="mb-6">
-            <img src="img/pert1.png" alt="Définition du réseau PERT" class="m-auto zoomable border rounded shadow-sm" />
-            <p class="text-center text-sm text-gray-500 mt-2">Définition du réseau PERT</p>
-        </div>
-
-        <div class="bg-yellow-50 p-4 rounded border-l-4 border-yellow-500 mb-6">
-            <p class="text-sm text-yellow-800">
-                <strong>A noter :</strong> pour l'ensemble des explications, nous avons utilisé des nombres de jours au lieu de dates. Il est ainsi plus facile de comprendre la logique. Une date au plus tôt de 5 jours correspond à 5 jours après le début du projet.
-            </p>
-        </div>
-
-        <h4 class="text-xl font-bold text-gray-800 mb-4">Les étapes pour créer un PERT</h4>
-        
-        <h5 class="font-bold text-blue-900 mt-4 mb-2">1. Préparez les tâches</h5>
-        <p class="text-gray-700 mb-2">
-            Commencez par lister les tâches - Soyez exhaustif en restant sur un niveau de détail gérable. Vous pouvez utiliser la méthode du brainstorming pour ne rien oublier et découper le projet avec le WBS (Work Breakdown Structure).
-        </p>
-
-        <h5 class="font-bold text-blue-900 mt-4 mb-2">2. Estimez leur durée et leur(s) antécédent(s)</h5>
-        <p class="text-gray-700 mb-4">
-            Pour chaque tâche, évaluer le temps nécessaire pour leur traitement.
-        </p>
-        
-        <div class="mb-6 overflow-x-auto">
-            <table class="min-w-full border-collapse border border-gray-300 text-sm">
-                <thead>
-                    <tr class="bg-gray-100">
-                        <th class="border p-2">Tâche</th>
-                        <th class="border p-2">Durée</th>
-                        <th class="border p-2">Antécédent(s)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td class="border p-2 text-center">A</td><td class="border p-2 text-center">2</td><td class="border p-2 text-center">-</td></tr>
-                    <tr><td class="border p-2 text-center">B</td><td class="border p-2 text-center">8</td><td class="border p-2 text-center">-</td></tr>
-                    <tr><td class="border p-2 text-center">C</td><td class="border p-2 text-center">5</td><td class="border p-2 text-center">A</td></tr>
-                    <tr><td class="border p-2 text-center">D</td><td class="border p-2 text-center">2</td><td class="border p-2 text-center">B</td></tr>
-                    <tr><td class="border p-2 text-center">E</td><td class="border p-2 text-center">6</td><td class="border p-2 text-center">B</td></tr>
-                    <tr><td class="border p-2 text-center">F</td><td class="border p-2 text-center">5</td><td class="border p-2 text-center">E</td></tr>
-                    <tr><td class="border p-2 text-center">G</td><td class="border p-2 text-center">3</td><td class="border p-2 text-center">A,D</td></tr>
-                </tbody>
-            </table>
-            <p class="text-center text-sm text-gray-500 mt-2">Exemple de tableau d'antériorités</p>
-        </div>
-
-
-
-        <h5 class="font-bold text-blue-900 mt-4 mb-2">3. Construisez le réseau en reliant les tâches entre elles</h5>
-        <p class="text-gray-700 mb-4">
-            Reprenez le tableau avec la liste de tâches et montez le réseau en utilisant les liens de dépendance (les antécédents). Indiquez sur le graphique la désignation des tâches et leur durée comme défini précédemment.
-        </p>
-        
-        <div class="mb-6">
-            <img src="img/pert2.png" alt="Comment construire un P.E.R.T ?" class="m-auto zoomable border rounded shadow-sm" />
-            <p class="text-center text-sm text-gray-500 mt-2">Comment construire un P.E.R.T ?</p>
-        </div>
-
-        <p class="text-gray-700 mb-6 italic">
-            La tâche en pointillés est qualifiée de fictive. Nous verrons plus bas comment la traiter.
-        </p>
-
-        <h5 class="font-bold text-blue-900 mt-4 mb-2">4. Indiquez les dates au plus tôt</h5>
-        <p class="text-gray-700 mb-2">
-            Prenez la première étape (ici "1"), ajoutez la date au plus tôt de l'étape précédente à la durée de la tâche qui la concerne : <strong>0 + 2 (tâche A) = 2</strong>.
-        </p>
-        <p class="text-gray-700 mb-4">
-            Faites de même pour l'ensemble des tâches. Par exemple pour l'étape 4 : <strong>8 + 6 (tâche E) = 14</strong>.
-        </p>
-        
-        <div class="mb-6">
-            <img src="img/pert3.png" alt="Le Diagramme PERT" class="m-auto zoomable border rounded shadow-sm" />
-            <p class="text-center text-sm text-gray-500 mt-2">Le Diagramme PERT</p>
-        </div>
-
-        <p class="text-gray-700 mb-4">
-            Lorsque plusieurs tâches convergent vers une même étape (ici l'étape de Fin), retenez comme date au plus tôt, le <strong>nombre de jours le plus grand</strong> des différentes possibilités.
-        </p>
-        <ul class="list-disc ml-6 text-gray-700 text-sm mb-4">
-            <li>Le chemin passant par la tâche C donne une date au plus tôt de 7 jours</li>
-            <li>par la tâche G, 13 jours</li>
-            <li>par F, 19 jours</li>
-        </ul>
-        <p class="text-gray-700 mb-6">
-            On retient donc <strong>19 jours</strong>, car le projet se finira au plus tôt 19 jours après son début.
-        </p>
-
-        <div class="bg-gray-100 p-4 rounded mb-6 border-l-4 border-gray-500">
-            <h6 class="font-bold text-gray-800 mb-2">Le cas de la tâche fictive</h6>
-            <p class="text-gray-700 text-sm">
-                Concernant la G, elle possède 2 antérieurs D et A. Comme une tâche ne peut être représentée que par une seule flèche, il est nécessaire de créer une tâche fictive. Comme la D possède la date au plus tôt la plus élevée, on crée à son extrémité de façon conventionnelle l'étape 3 - puis on crée une tâche fictive G' avec une durée de 0 reliant les étapes 1 et 3.
-            </p>
-        </div>
-
-        <h5 class="font-bold text-blue-900 mt-4 mb-2">5. Renseignez les dates au plus tard</h5>
-        <p class="text-gray-700 mb-4">
-            Parcourez le chemin inverse pour calculer les dates au plus tard. Partez de la dernière étape et indiquez la date au plus tard égale à la date au plus tôt, ici 19 jours. Puis remontez le graphe en retranchant cette fois à la date au plus tard de l'étape en question, la durée de la tâche qui la précède pour trouver la date au plus tard de l'étape positionnée en amont.
-        </p>
-        <p class="text-gray-700 mb-4">
-            <em>Exemple pour l'étape 1 :</em> 19 jours (nœud final) - 5 jours (tâche C) = 14 jours.
-        </p>
-        
-        <div class="mb-6">
-            <img src="img/pert4.png" alt="Planning PERT : dates au plus tard" class="m-auto zoomable border rounded shadow-sm" />
-            <p class="text-center text-sm text-gray-500 mt-2">Planning PERT : dates au plus tard</p>
-        </div>
-
-        <p class="text-gray-700 mb-6">
-            Lorsque 2 tâches ont pour origine la même étape, calculez les dates dans les 2 cas et retenez la <strong>date la plus petite</strong>. Procédez de la même manière avec les tâches fictives.
-            <br><em>Exemple pour l'étape 2 :</em> en passant par la tâche D, la date au plus tard est de 14, alors que via l'étape E, nous avons 8. Nous retenons donc 8.
-        </p>
-
-        <h5 class="font-bold text-blue-900 mt-4 mb-2">6. Calculez les marges des tâches</h5>
-        <p class="text-gray-700 mb-4">
-            Ces marges sont des degrés de liberté qui permettent d'absorber des retards. Elles assurent la flexibilité du projet.
-        </p>
-        
-        <div class="grid md:grid-cols-2 gap-6 mb-6">
-            <div class="bg-white border p-4 rounded">
-                <h6 class="font-bold text-gray-800 mb-2">Marge Totale</h6>
-                <p class="text-sm text-gray-700 mb-2">
-                    Le retard que peut prendre la réalisation d'une tâche sans impacter la date de fin du projet.
-                </p>
-                <div class="bg-gray-100 p-2 rounded text-xs font-mono">
-                    Date au plus tard étape suivante - Durée tâche - Date au plus tôt étape précédente
-                </div>
-                <p class="text-xs text-gray-500 mt-2">Exemple tâche D : 16 - 2 - 8 = 6 jours.</p>
+        <div class="grid md:grid-cols-4 gap-3 mb-6">
+            <div class="bg-gray-100 p-3 rounded text-center">
+                <div class="text-2xl mb-2">❓</div>
+                <h5 class="font-bold text-gray-800">Untracked</h5>
+                <p class="text-xs text-gray-600">Nouveau fichier, inconnu de Git</p>
             </div>
-            <div class="bg-white border p-4 rounded">
-                <h6 class="font-bold text-gray-800 mb-2">Marge Libre</h6>
-                <p class="text-sm text-gray-700 mb-2">
-                    Le retard que peut prendre la réalisation d'une tâche sans impact sur la date au plus tôt des tâches suivantes.
-                </p>
-                <div class="bg-gray-100 p-2 rounded text-xs font-mono">
-                    Date au plus tôt étape suivante - Durée tâche - Date au plus tôt étape précédente
-                </div>
-                <p class="text-xs text-gray-500 mt-2">Note : Marge libre <= Marge totale.</p>
+            <div class="bg-red-100 p-3 rounded text-center">
+                <div class="text-2xl mb-2">✏️</div>
+                <h5 class="font-bold text-red-800">Modified</h5>
+                <p class="text-xs text-red-700">Modifié mais pas encore stagé</p>
+            </div>
+            <div class="bg-yellow-100 p-3 rounded text-center">
+                <div class="text-2xl mb-2">📦</div>
+                <h5 class="font-bold text-yellow-800">Staged</h5>
+                <p class="text-xs text-yellow-700">Prêt pour le prochain commit</p>
+            </div>
+            <div class="bg-green-100 p-3 rounded text-center">
+                <div class="text-2xl mb-2">✅</div>
+                <h5 class="font-bold text-green-800">Committed</h5>
+                <p class="text-xs text-green-700">Enregistré dans l'historique</p>
             </div>
         </div>
 
-        <div class="mb-6 overflow-x-auto">
-    
-            <img src="img/pert5.png" alt="Réseau PERT : chemin critique" class="m-auto zoomable border rounded shadow-sm" />
-   
-    
-        <table class="min-w-full border-collapse border border-gray-300 text-sm">
-                <thead>
-                    <tr class="bg-gray-100">
-                        <th class="border p-2">Tâche</th>
-                        <th class="border p-2">Marge libre</th>
-                        <th class="border p-2">Marge totale</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td class="border p-2 text-center">A</td><td class="border p-2 text-center">0</td><td class="border p-2 text-center">12</td></tr>
-                    <tr><td class="border p-2 text-center">C</td><td class="border p-2 text-center">12</td><td class="border p-2 text-center">12</td></tr>
-                    <tr><td class="border p-2 text-center">B</td><td class="border p-2 text-center">0</td><td class="border p-2 text-center">0</td></tr>
-                    <tr><td class="border p-2 text-center">D</td><td class="border p-2 text-center">0</td><td class="border p-2 text-center">6</td></tr>
-                    <tr><td class="border p-2 text-center">G</td><td class="border p-2 text-center">6</td><td class="border p-2 text-center">6</td></tr>
-                    <tr><td class="border p-2 text-center">E</td><td class="border p-2 text-center">0</td><td class="border p-2 text-center">0</td></tr>
-                    <tr><td class="border p-2 text-center">F</td><td class="border p-2 text-center">0</td><td class="border p-2 text-center">0</td></tr>
-                </tbody>
-            </table>
-            <p class="text-center text-sm text-gray-500 mt-2">Calcul des marges dans l'exemple</p>
+        <div class="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
+            <h5 class="font-bold text-blue-900 mb-2">🔄 Le flux de travail standard</h5>
+            <pre class="text-sm text-blue-800 font-mono">
+Untracked ──git add──▶ Staged ──git commit──▶ Committed
+                          ▲                        │
+                          │                        │
+Modified ◀──modifier────────────────────────────────┘</pre>
         </div>
+    </div>
 
-        <h5 class="font-bold text-blue-900 mt-4 mb-2">7. Définition du chemin critique</h5>
-        <p class="text-gray-700 mb-4">
-            Il s'agit du chemin passant par les tâches dont la marge totale est nulle. Ce tracé indique le délai incompressible pour réaliser le projet.
-        </p>
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">1.2 Commandes essentielles du cycle</h4>
         
-        <div class="mb-6">
-            <img src="img/pert7.png" alt="Réseau PERT : chemin critique" class="m-auto zoomable border rounded shadow-sm" />
-            <p class="text-center text-sm text-gray-500 mt-2">Réseau PERT : chemin critique</p>
+        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto mb-4">
+# Voir l'état actuel
+$ git status
+$ git status -s          # Version courte
+
+# Ajouter des fichiers à la staging area
+$ git add fichier.txt    # Un fichier spécifique
+$ git add .              # Tout le répertoire courant
+$ git add -A             # Tout, y compris suppressions
+$ git add -p             # Interactif, chunk par chunk
+
+# Retirer de la staging area (sans perdre les modifications)
+$ git restore --staged fichier.txt   # Git 2.23+
+$ git reset HEAD fichier.txt         # Ancienne méthode
+
+# Annuler les modifications (DANGER: perte définitive)
+$ git restore fichier.txt            # Git 2.23+
+$ git checkout -- fichier.txt        # Ancienne méthode
+
+# Créer un commit
+$ git commit -m "Message du commit"
+$ git commit -am "Message"           # Add + Commit (fichiers suivis uniquement)
+$ git commit                         # Ouvre l'éditeur pour le message</pre>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">1.3 Bonnes pratiques pour les commits</h4>
+        
+        <div class="grid md:grid-cols-2 gap-4">
+            <div class="bg-green-50 p-4 rounded">
+                <h5 class="font-bold text-green-900 mb-2">✅ À faire</h5>
+                <ul class="list-disc ml-4 text-sm text-green-800 space-y-1">
+                    <li>Commits atomiques (une seule modification logique)</li>
+                    <li>Messages clairs : "feat: ajout login OAuth"</li>
+                    <li>Utiliser des préfixes : feat, fix, docs, refactor, test</li>
+                    <li>Écrire au présent impératif : "Add", pas "Added"</li>
+                </ul>
+            </div>
+            <div class="bg-red-50 p-4 rounded">
+                <h5 class="font-bold text-red-900 mb-2">❌ À éviter</h5>
+                <ul class="list-disc ml-4 text-sm text-red-800 space-y-1">
+                    <li>Commits géants mélangeant plusieurs features</li>
+                    <li>Messages vagues : "fix bug", "update"</li>
+                    <li>Commiter des fichiers générés ou secrets</li>
+                    <li>Commits WIP sans les squasher avant merge</li>
+                </ul>
+            </div>
         </div>
 
-        <p class="text-gray-700">
-            Une fois le PERT terminé, il est conseillé de construire un planning Gantt pour faciliter la visualisation et la gestion au quotidien.
-            <br><em>A noter que ce diagramme ne se monte pas une fois pour toutes en début de projet. Il demande à être actualisé en fonction des événements (retards...).</em>
-        </p>
+        <div class="mt-4 bg-purple-50 p-4 rounded border-l-4 border-purple-500">
+            <h5 class="font-bold text-purple-900 mb-2">📝 Convention Conventional Commits</h5>
+            <pre class="text-sm text-purple-800 font-mono bg-purple-100 p-2 rounded">
+&lt;type&gt;(&lt;scope&gt;): &lt;description&gt;
 
+[optional body]
+[optional footer(s)]
+
+Exemple: feat(auth): implement JWT token refresh</pre>
+        </div>
     </div>
 </section>
 
-<section id="analyse-gantt" class="mb-16">
-    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Chapitre 2 : Analyse dans MS Project (Chemin Critique)</h3>
-   
-   
-   <img src="img/reseaux.png" alt="Réseau PERT : chemin critique" class="m-auto zoomable border rounded shadow-sm" />
-    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">Le Chemin Critique</h4>
-        <p class="text-gray-700 mb-4">
-            C'est la séquence de tâches qui détermine la durée totale du projet. Si une tâche critique prend du retard, tout le projet est en retard. (Marge Totale = 0).
-        </p>
+<!-- ========== CHAPITRE 2 : GIT DIFF ========== -->
+<section id="maitrise-diff" class="mb-16">
+    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Chapitre 2 : Maîtrise de git diff</h3>
 
-        <div class="bg-red-50 p-4 rounded border-l-4 border-red-500 mt-4">
-            <h5 class="font-bold text-red-900 mb-2">👉 Comment l'afficher dans MS Project ?</h5>
-            <ul class="list-decimal ml-5 text-sm text-red-800 space-y-2">
-                <li>Allez dans l'onglet <strong>FORMAT</strong> (Outils Diagramme de Gantt).</li>
-                <li>Cochez la case <strong>Tâches critiques</strong>.</li>
-                <li>Les barres des tâches critiques deviennent <strong>Rouges</strong>.</li>
-            </ul>
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">2.1 Les trois comparaisons fondamentales</h4>
+        
+        <div class="space-y-4">
+            <div class="bg-blue-50 p-4 rounded">
+                <h5 class="font-bold text-blue-900 mb-2">📁 Working Directory vs Staging Area</h5>
+                <pre class="bg-gray-800 text-green-400 p-3 rounded text-sm overflow-x-auto">
+$ git diff
+# Montre ce qui a été modifié mais pas encore stagé</pre>
+            </div>
+            
+            <div class="bg-yellow-50 p-4 rounded">
+                <h5 class="font-bold text-yellow-900 mb-2">📦 Staging vs Dernier Commit</h5>
+                <pre class="bg-gray-800 text-green-400 p-3 rounded text-sm overflow-x-auto">
+$ git diff --staged
+$ git diff --cached     # Synonyme
+# Montre ce qui sera inclus dans le prochain commit</pre>
+            </div>
+            
+            <div class="bg-green-50 p-4 rounded">
+                <h5 class="font-bold text-green-900 mb-2">📊 Working Directory vs Dernier Commit</h5>
+                <pre class="bg-gray-800 text-green-400 p-3 rounded text-sm overflow-x-auto">
+$ git diff HEAD
+# Montre TOUTES les modifications depuis le dernier commit</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">2.2 Comparaisons entre branches et commits</h4>
+        
+        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto mb-4">
+# Entre deux branches
+$ git diff main..feature/login
+$ git diff main...feature/login  # Depuis l'ancêtre commun
+
+# Entre deux commits
+$ git diff abc1234..def5678
+$ git diff HEAD~3..HEAD          # 3 derniers commits
+
+# Un fichier spécifique entre commits
+$ git diff abc1234..HEAD -- src/app.js
+
+# Liste des fichiers modifiés (sans le contenu)
+$ git diff --name-only main..feature
+$ git diff --name-status main..feature   # Avec type de modif (M, A, D)</pre>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">2.3 Lecture d'un diff</h4>
+        
+        <pre class="bg-gray-800 text-sm overflow-x-auto p-4 rounded">
+<span class="text-white">diff --git a/src/app.js b/src/app.js</span>
+<span class="text-gray-400">index 8ab686e..2c3d4e5 100644</span>
+<span class="text-white">--- a/src/app.js</span>
+<span class="text-white">+++ b/src/app.js</span>
+<span class="text-cyan-400">@@ -10,7 +10,8 @@ function init() {</span>
+ <span class="text-gray-300">  const config = loadConfig();</span>
+ <span class="text-gray-300">  const db = connectDB();</span>
+<span class="text-red-400">-  console.log("Starting...");</span>
+<span class="text-green-400">+  logger.info("Application starting");</span>
+<span class="text-green-400">+  logger.debug("Config loaded", config);</span>
+ <span class="text-gray-300">  return app;</span>
+ <span class="text-gray-300">}</span></pre>
+
+        <div class="mt-4 grid md:grid-cols-2 gap-4">
+            <div class="text-sm">
+                <p class="font-bold text-gray-700 mb-1">Légende :</p>
+                <ul class="space-y-1 text-gray-600">
+                    <li><span class="text-red-600">−</span> Ligne supprimée</li>
+                    <li><span class="text-green-600">+</span> Ligne ajoutée</li>
+                    <li><span class="text-gray-500">(espace)</span> Contexte non modifié</li>
+                </ul>
+            </div>
+            <div class="text-sm">
+                <p class="font-bold text-gray-700 mb-1">Header <code>@@</code> :</p>
+                <p class="text-gray-600"><code>@@ -10,7 +10,8 @@</code> = "Ancien fichier: ligne 10, 7 lignes / Nouveau: ligne 10, 8 lignes"</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">2.4 Options utiles de diff</h4>
+        
+        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto">
+# Ignorer les espaces blancs
+$ git diff -w
+$ git diff --ignore-all-space
+
+# Montrer les mots modifiés (pas les lignes)
+$ git diff --word-diff
+
+# Diff coloré pour les mots
+$ git diff --color-words
+
+# Statistiques seulement
+$ git diff --stat
+
+# Limiter le contexte
+$ git diff -U1     # 1 ligne de contexte (défaut: 3)</pre>
+    </div>
+</section>
+
+<!-- ========== CHAPITRE 3 : PATCHS ========== -->
+<section id="patchs" class="mb-16">
+    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Chapitre 3 : Patchs (git apply, git format-patch)</h3>
+
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">3.1 Créer un patch</h4>
+        <p class="text-gray-700 mb-4">
+            Un patch est un fichier texte contenant les modifications, pouvant être partagé et appliqué ailleurs (par email, ticket, etc.).
+        </p>
+        
+        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto mb-4">
+# Créer un patch à partir du diff non commité
+$ git diff > mon_patch.patch
+
+# Créer des patchs pour les N derniers commits (1 fichier par commit)
+$ git format-patch -3
+# Crée: 0001-Premier-commit.patch, 0002-Deuxieme.patch, 0003-Troisieme.patch
+
+# Patch depuis une branche
+$ git format-patch main..feature/login -o patches/
+
+# Patch unique pour plusieurs commits
+$ git format-patch main..feature --stdout > all-changes.patch</pre>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">3.2 Appliquer un patch</h4>
+        
+        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto mb-4">
+# Appliquer un patch simple (modifications non commitées)
+$ git apply mon_patch.patch
+
+# Vérifier si le patch s'applique proprement (dry run)
+$ git apply --check mon_patch.patch
+
+# Appliquer avec statistiques
+$ git apply --stat mon_patch.patch
+
+# Appliquer les patchs format-patch (avec commits et messages)
+$ git am 0001-Premier-commit.patch
+$ git am patches/*.patch             # Tous les patchs du dossier
+
+# En cas de conflit avec git am
+$ git am --abort                     # Annuler
+$ git am --skip                      # Ignorer ce patch
+$ git am --continue                  # Après résolution manuelle</pre>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">3.3 Cas d'usage des patchs</h4>
+        
+        <div class="grid md:grid-cols-2 gap-4">
+            <div class="bg-blue-50 p-4 rounded">
+                <h5 class="font-bold text-blue-900 mb-2">📧 Contribution par email</h5>
+                <p class="text-sm text-blue-800">Le workflow historique du noyau Linux : les développeurs envoient des patchs par email aux mainteneurs.</p>
+            </div>
+            <div class="bg-green-50 p-4 rounded">
+                <h5 class="font-bold text-green-900 mb-2">🔒 Environnements isolés</h5>
+                <p class="text-sm text-green-800">Transférer des modifications vers des machines sans accès réseau au dépôt distant.</p>
+            </div>
+            <div class="bg-orange-50 p-4 rounded">
+                <h5 class="font-bold text-orange-900 mb-2">📋 Review de code</h5>
+                <p class="text-sm text-orange-800">Partager des modifications pour revue avant de les pousser officiellement.</p>
+            </div>
+            <div class="bg-purple-50 p-4 rounded">
+                <h5 class="font-bold text-purple-900 mb-2">🔧 Hotfixes</h5>
+                <p class="text-sm text-purple-800">Appliquer rapidement un correctif spécifique à plusieurs branches ou dépôts.</p>
+            </div>
+        </div>
+
+        <div class="mt-4 bg-yellow-50 p-4 rounded border-l-4 border-yellow-500">
+            <p class="text-sm text-yellow-800"><strong>💡 Conseil :</strong> <code>git format-patch</code> est préférable à <code>git diff</code> car il préserve les métadonnées du commit (auteur, date, message).</p>
         </div>
     </div>
 </section>

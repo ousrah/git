@@ -27,6 +27,68 @@
             <p class="text-sm text-blue-800">GitHub, GitLab ou Bitbucket ne sont rien d'autres que des collections de dépôts "Bare" avec une interface web par dessus.</p>
         </div>
     </div>
+
+    <!-- EXERCICE BARE REPO -->
+    <div class="bg-indigo-50 p-6 rounded-lg border border-indigo-200 mb-6">
+        <h4 class="text-xl font-bold text-indigo-900 mb-4">Exercice Pratique : Le Serveur Local (Simulation)</h4>
+        <p class="text-indigo-800 mb-4">
+            Comme nous n'avons pas de "vrai" serveur GitHub sous la main, nous allons en simuler un sur votre propre dossier. C'est idéal pour comprendre la mécanique sans risque.
+        </p>
+
+        <div class="space-y-4">
+            <div class="bg-white p-4 rounded border-l-4 border-indigo-400">
+                <h5 class="font-bold text-indigo-700 text-sm">1. Créer le "Faux GitHub"</h5>
+                <div class="bg-gray-800 text-white p-3 rounded text-xs font-mono mt-2">
+                    <p class="text-gray-500"># Sortez de votre projet actuel</p>
+                    <p>$ cd ..</p>
+                    <p class="text-gray-500"># Créez un dossier nu (bare)</p>
+                    <p>$ git init --bare techstore-server.git</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded border-l-4 border-indigo-400">
+                <h5 class="font-bold text-indigo-700 text-sm">2. Connecter votre projet</h5>
+                <div class="bg-gray-800 text-white p-3 rounded text-xs font-mono mt-2">
+                    <p class="text-gray-500"># Retournez dans votre projet TechStore</p>
+                    <p>$ cd techstore</p>
+                    <p class="text-gray-500"># Ajoutez l'adresse du serveur (Remote)</p>
+                    <p>$ git remote add origin ../techstore-server.git</p>
+                    <p class="text-gray-500"># Vérifiez</p>
+                    <p>$ git remote -v</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-indigo-50 p-6 rounded-lg border border-indigo-200 mb-6">
+        <h4 class="text-xl font-bold text-indigo-900 mb-4">Exercice Pratique : Le Serveur Local (Simulation)</h4>
+        <p class="text-indigo-800 mb-4">
+            Comme nous n'avons pas de "vrai" serveur GitHub sous la main, nous allons en simuler un sur votre propre dossier. C'est idéal pour comprendre la mécanique sans risque.
+        </p>
+
+        <div class="space-y-4">
+            <div class="bg-white p-4 rounded border-l-4 border-indigo-400">
+                <h5 class="font-bold text-indigo-700 text-sm">1. Créer le "Faux GitHub"</h5>
+                <div class="bg-gray-800 text-white p-3 rounded text-xs font-mono mt-2">
+                    <p class="text-gray-500"># Sortez de votre projet actuel</p>
+                    <p>$ cd ..</p>
+                    <p class="text-gray-500"># Créez un dossier nu (bare)</p>
+                    <p>$ git init --bare techstore-server.git</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded border-l-4 border-indigo-400">
+                <h5 class="font-bold text-indigo-700 text-sm">2. Connecter votre projet</h5>
+                <div class="bg-gray-800 text-white p-3 rounded text-xs font-mono mt-2">
+                    <p class="text-gray-500"># Retournez dans votre projet TechStore</p>
+                    <p>$ cd techstore</p>
+                    <p class="text-gray-500"># Ajoutez l'adresse du serveur (Remote)</p>
+                    <p>$ git remote add origin ../techstore-server.git</p>
+                    <p class="text-gray-500"># Vérifiez</p>
+                    <p>$ git remote -v</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 <!-- ========== CHAPITRE 2 : PUSH, PULL & REBASE ========== -->
@@ -74,6 +136,59 @@
         </div>
     </div>
 
+    <!-- EXERCICE PUSH/PULL/FETCH -->
+    <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 mb-6">
+        <h4 class="text-xl font-bold text-blue-900 mb-4">Exercice : Premier Push & Simulation Collègue (Fetch)</h4>
+        
+        <div class="space-y-4">
+            <div class="bg-white p-4 rounded border-l-4 border-blue-400">
+                <h5 class="font-bold text-blue-700 text-sm">1. Pousser votre travail (Push)</h5>
+                <p class="text-sm text-gray-600 mb-2">Envoyez votre site TechStore actuel vers le serveur.</p>
+                <div class="bg-gray-800 text-white p-3 rounded text-xs font-mono">
+                    <p>$ git push -u origin main</p>
+                </div>
+                <p class="text-xs text-green-600 mt-1">Succès ! Votre code est "dans le nuage" (enfin, dans le dossier d'à côté).</p>
+            </div>
+
+            <div class="bg-white p-4 rounded border-l-4 border-purple-400">
+                <h5 class="font-bold text-purple-700 text-sm">2. Simuler un Collègue (Clone)</h5>
+                <p class="text-sm text-gray-600 mb-2">Pour tester <code>pull</code> et <code>fetch</code>, il nous faut un deuxième développeur. Créons un clone dans un nouveau dossier.</p>
+                <div class="bg-gray-800 text-white p-3 rounded text-xs font-mono">
+                    <p class="text-gray-500"># Sortez du dossier techstore</p>
+                    <p>$ cd ..</p>
+                    <p class="text-gray-500"># Clonez le projet en tant que "Collegue"</p>
+                    <p>$ git clone techstore-server.git techstore-collegue</p>
+                    <p class="text-gray-500"># Entrez chez le collègue</p>
+                    <p>$ cd techstore-collegue</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded border-l-4 border-purple-400">
+                <h5 class="font-bold text-purple-700 text-sm">3. Le Collègue travaille (Push)</h5>
+                <p class="text-sm text-gray-600 mb-2">Le collègue modifie le titre et pousse.</p>
+                <div class="bg-gray-800 text-white p-3 rounded text-xs font-mono">
+                    <p class="text-gray-500"># Dans techstore-collegue</p>
+                    <p>$ echo "&lt;!-- Update --&gt;" >> index.html</p>
+                    <p>$ git commit -am "Update du collegue"</p>
+                    <p>$ git push origin main</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded border-l-4 border-blue-400">
+                <h5 class="font-bold text-blue-700 text-sm">4. Vous récupérez (Fetch vs Pull)</h5>
+                <div class="bg-gray-800 text-white p-3 rounded text-xs font-mono mt-2">
+                    <p class="text-gray-500"># Retournez dans VOTRE dossier</p>
+                    <p>$ cd ../techstore</p>
+                    <p>$ git fetch origin</p>
+                    <p class="text-gray-500"># Rien ne bouge dans vos fichiers. Tapez 'git status'.</p>
+                    <p class="text-gray-500"># message : "Your branch is behind... by 1 commit"</p>
+                    <p>$ git pull origin main</p>
+                    <p class="text-green-500"># Maintenant vos fichiers sont à jour !</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
         <h4 class="text-xl font-bold text-gray-800 mb-4">2.4 L'élégance du Pull --rebase</h4>
         <p class="text-gray-700 mb-4">
@@ -90,6 +205,43 @@
         <div class="bg-gray-800 text-gray-300 p-4 rounded text-sm font-mono mb-4">
             <p class="text-gray-500"># Historique linéaire garanti</p>
             <p>$ git pull --rebase origin main</p>
+        </div>
+    </div>
+    <div class="bg-red-50 p-6 rounded-lg border border-red-200 mb-6">
+        <h4 class="text-xl font-bold text-red-900 mb-4">Exercice : Simulation du Rebase</h4>
+        <p class="text-red-800 mb-4">
+            Nous allons créer une divergence pour voir le Rebase en action.
+        </p>
+
+        <div class="space-y-4">
+            <div class="bg-white p-4 rounded border-l-4 border-purple-400">
+                <h5 class="font-bold text-purple-700 text-sm">1. Le Collègue avance encore (Côté Serveur)</h5>
+                <div class="bg-gray-800 text-white p-3 rounded text-xs font-mono">
+                    <p>$ cd ../techstore-collegue</p>
+                    <p>$ echo "Footer: 2026" >> index.html</p>
+                    <p>$ git commit -am "Footer Update"</p>
+                    <p>$ git push origin main</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded border-l-4 border-blue-400">
+                <h5 class="font-bold text-blue-700 text-sm">2. Vous travaillez en local (Sans savoir)</h5>
+                <div class="bg-gray-800 text-white p-3 rounded text-xs font-mono">
+                    <p>$ cd ../techstore</p>
+                    <p>$ echo "Header: New Logo" >> index.html</p>
+                    <p>$ git commit -am "Header Update"</p>
+                </div>
+                <p class="text-xs text-red-600 mt-2 font-bold">À ce stade, les historiques ont divergé !</p>
+            </div>
+
+            <div class="bg-white p-4 rounded border-l-4 border-green-500">
+                <h5 class="font-bold text-green-700 text-sm">3. Le Rebase Salvateur</h5>
+                <div class="bg-gray-800 text-white p-3 rounded text-xs font-mono">
+                    <p class="text-gray-500"># On récupère le travail du collègue ET on se place après</p>
+                    <p>$ git pull --rebase origin main</p>
+                    <p class="text-green-400"># Git déplace votre commit "Header Update" après "Footer Update"</p>
+                </div>
+            </div>
         </div>
     </div>
 </section>

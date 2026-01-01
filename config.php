@@ -38,11 +38,10 @@ $course_parts = [
         ['id' => 'projet-start', 'title' => "Chapitre 3 : 🏆 Projet 'TechStore' : Pratique & Conflits"],
         ['id' => 'master-stash', 'title' => "Chapitre 4 : La Maîtrise du Stash (Expert)"]
     ],
-    "Partie 7 : Conflits et Maintenance Avancée" => [
-        ['id' => 'strategies-merge', 'title' => "Chapitre 1 : Stratégies de Merge"],
-        ['id' => 'conflits-rebase', 'title' => "Chapitre 2 : Conflits de Rebase"],
-        ['id' => 'rerere', 'title' => "Chapitre 3 : Git Rerere"],
-        ['id' => 'maintenance', 'title' => "Chapitre 4 : Maintenance (clean, gc)"]
+    "Partie 7 : Collaboration Expert & Conflits Avancés" => [
+        ['id' => 'bare-remote', 'title' => "Chapitre 1 : Architecture Serveur (Bare & Remotes)"],
+        ['id' => 'push-pull-rebase', 'title' => "Chapitre 2 : Synchro & Rebase (Push, Pull --rebase)"],
+        ['id' => 'advanced-conflicts', 'title' => "Chapitre 3 : Gestion de Conflits Expert (Ours, Theirs, Rere)"]
     ],
     "Partie 8 : Investigation et Debugging" => [
         ['id' => 'git-blame', 'title' => "Chapitre 1 : Git Blame"],

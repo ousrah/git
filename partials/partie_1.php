@@ -107,7 +107,37 @@
     </div>
 
     <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">3.2 Git vs GitHub (Ne pas confondre !)</h4>
+        <h4 class="text-xl font-bold text-gray-800 mb-4">3.2 La première configuration (Indispensable !)</h4>
+        <p class="text-gray-700 mb-4">
+            Une fois Git installé, vous <strong>devez</strong> lui dire qui vous êtes. Ces informations apparaîtront dans l'historique de chaque modification.
+        </p>
+        
+        <div class="bg-gray-800 text-white p-4 rounded font-mono text-sm mb-4 overflow-x-auto">
+            <p class="mb-2 text-gray-400"># 1. Définir votre nom (Obligatoire)</p>
+            <p class="mb-4 text-green-400">git config --global user.name "John Doe"</p>
+
+            <p class="mb-2 text-gray-400"># 2. Définir votre email (Celui de GitHub/GitLab)</p>
+            <p class="mb-4 text-green-400">git config --global user.email "john@example.com"</p>
+
+            <p class="mb-2 text-gray-400"># 3. Moderniser la branche par défaut (Recommandé)</p>
+            <p class="mb-4 text-green-400">git config --global init.defaultBranch main</p>
+
+            <p class="mb-2 text-gray-400"># 4. Gérer les fins de ligne (Important pour Windows)</p>
+            <p class="mb-4 text-green-400">git config --global core.autocrlf true</p>
+            
+            <p class="mb-2 text-gray-400"># 5. Vérifier la configuration</p>
+            <p class="text-green-400">git config --list</p>
+        </div>
+
+        <div class="bg-yellow-50 p-4 rounded border-l-4 border-yellow-500">
+            <p class="text-sm text-yellow-800">
+                <strong>⚠️ Important :</strong> Utilisez le <strong>même email</strong> que celui de votre compte GitHub/GitLab. Git a besoin de ça pour relier vos contributions (commits) à votre profil en ligne.
+            </p>
+        </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
+        <h4 class="text-xl font-bold text-gray-800 mb-4">3.3 Git vs GitHub (Ne pas confondre !)</h4>
         <p class="text-gray-700 mb-4">C'est la confusion n°1 des débutants.</p>
         
         <div class="grid md:grid-cols-2 gap-6 mb-4">
@@ -125,7 +155,7 @@
     </div>
 
     <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-        <h4 class="text-xl font-bold text-gray-800 mb-4">3.3 Les plateformes d'hébergement</h4>
+        <h4 class="text-xl font-bold text-gray-800 mb-4">3.4 Les plateformes d'hébergement</h4>
         <p class="text-gray-700 mb-4">Où stocker votre code en ligne ? Il y a plusieurs concurrents :</p>
         
         <div class="grid md:grid-cols-3 gap-4">

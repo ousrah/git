@@ -5,7 +5,7 @@
 
 <!-- ========== CHAPITRE 1 : GIT AMEND ========== -->
 <section id="git-amend" class="mb-16">
-    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Chapitre 1 : </h3>
+    <h3 class="text-2xl font-semibold mb-4 text-blue-800">Chapitre 1 : Oups ! Petite correction (git commit --amend)</h3>
 
     <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
         <h4 class="text-xl font-bold text-gray-800 mb-4">1.1 Corriger le dernier commit</h4>
